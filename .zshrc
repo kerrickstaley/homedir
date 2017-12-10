@@ -102,7 +102,7 @@ fi
 # kudos to https://mharrison.org/post/bashfunctionoverride/
 eval "$(declare -f git_prompt_info | sed '1s/git_prompt_info/git_prompt_info_orig/')"
 git_prompt_info() {
-    if [ "$(git rev-parse --show-toplevel)" != "$HOME" ]; then
+    if [ "$(git rev-parse --show-toplevel 2>/dev/null)" != "$HOME" ]; then
         git_prompt_info_orig
     fi
 }
