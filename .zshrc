@@ -107,4 +107,4 @@ git_prompt_info() {
     fi
 }
 
-EDITOR=vim
+export EDITOR=vim
