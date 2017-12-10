@@ -93,3 +93,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="$PATH:$HOME/bin"
+
+if runningon linux; then
+    source /etc/profile.d/vte.sh
+fi
