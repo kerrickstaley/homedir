@@ -106,3 +106,5 @@ git_prompt_info() {
         git_prompt_info_orig
     fi
 }
+
+EDITOR=vim
