@@ -97,3 +97,12 @@ export PATH="$PATH:$HOME/bin"
 if runningon linux; then
     source /etc/profile.d/vte.sh
 fi
+
+# this block prevents the Git status from being shown in the prompt for ~
+# kudos to https://mharrison.org/post/bashfunctionoverride/
+eval "$(declare -f git_prompt_info | sed '1s/git_prompt_info/git_prompt_info_orig/')"
+git_prompt_info() {
+    if [ "$(git rev-parse --show-toplevel)" != "$HOME" ]; then
+        git_prompt_info_orig
+    fi
+}
