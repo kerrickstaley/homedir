@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+from sh import aws, jq
+import os
+import sys
+
+name, instance_id = sys.argv[1:]
+
+aws.ec2('start-instances', '--instance-ids', instance_id)
+instance_dns = jq(
+    aws.ec2(
+        'describe-instances',
+        '--instance-ids', instance_id),
+    '-r',
+    '.Reservations[0].Instances[0].PublicDnsName').strip()
+
+ssh_config_path = os.path.join(
+    os.environ['HOME'],
+    '.ssh/config')
+host_gpu_section = False
+with open(ssh_config_path) as inf, open(ssh_config_path + '.new', 'w') as outf:
+    for line in inf:
+        if line.startswith('Host '):
+            host_gpu_section = line.strip() == f'Host {name}'
+        if host_gpu_section and line.startswith('  Hostname '):
+            outf.write('  Hostname {}\n'.format(instance_dns))
+            continue
+        outf.write(line)
+
+os.rename(ssh_config_path + '.new', ssh_config_path)
