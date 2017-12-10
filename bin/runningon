@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+import socket
+import sys
+
+HOST_TO_TAGS = {
+    'biggun': {'linux'},
+    'krrkmac': {'macos'},
+}
+
+TAG_TO_HOSTS = {}
+for host, tags in HOST_TO_TAGS.items():
+    for tag in tags:
+        TAG_TO_HOSTS.setdefault(tag, set())
+        TAG_TO_HOSTS[tag].add(host)
+
+
+hostname = socket.gethostname()
+
+for arg in sys.argv[1:]:
+    if arg in HOST_TO_TAGS:
+        if arg == hostname:
+            sys.exit(0)
+    elif arg in TAG_TO_HOSTS:
+        if hostname in TAG_TO_HOSTS[arg]:
+            sys.exit(0)
+    else:
+        raise Exception('Unrecognized argument {}!'.format(sys.argv[1]))
+
+sys.exit(1)
