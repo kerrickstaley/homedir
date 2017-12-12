@@ -108,5 +108,6 @@ git_prompt_info() {
 }
 
 export EDITOR=vim
+export GOPATH=~/go
 
 source ~/.zshrc_local
