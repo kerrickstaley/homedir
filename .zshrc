@@ -102,8 +102,28 @@ fi
 # kudos to https://mharrison.org/post/bashfunctionoverride/
 eval "$(declare -f git_prompt_info | sed '1s/git_prompt_info/git_prompt_info_orig/')"
 git_prompt_info() {
-    if [ "$(git rev-parse --show-toplevel 2>/dev/null)" != "$HOME" ]; then
+    if [ "$(/usr/bin/env git rev-parse --show-toplevel 2>/dev/null)" != "$HOME" ]; then
         git_prompt_info_orig
+    fi
+}
+
+git() {
+    if [ "$(/usr/bin/env git rev-parse --show-toplevel 2>/dev/null)" != "$HOME" ]; then
+        /usr/bin/env git "$@"
+        return $?
+    else
+        echo "refusing to do git operation on home directory!"
+        return 1
+    fi
+}
+
+homegit() {
+    if [ "$(/usr/bin/env git rev-parse --show-toplevel 2>/dev/null)" = "$HOME" ]; then
+        /usr/bin/env git "$@"
+        return $?
+    else
+        echo "this command only works for the home directory!"
+        return 1
     fi
 }
 
