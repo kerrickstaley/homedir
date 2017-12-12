@@ -108,3 +108,5 @@ git_prompt_info() {
 }
 
 export EDITOR=vim
+
+source ~/.zshrc_local
