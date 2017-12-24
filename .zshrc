@@ -96,6 +96,9 @@ export PATH="$PATH:$HOME/bin"
 
 if runningon linux; then
     source /etc/profile.d/vte.sh
+    pbpaste() {
+        xclip -o -selection=clipboard
+    }
 fi
 
 # this block prevents the Git status from being shown in the prompt for ~
