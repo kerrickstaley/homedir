@@ -92,7 +92,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.gem/ruby/2.4.0/bin/"
 
 if runningon linux; then
     source /etc/profile.d/vte.sh
