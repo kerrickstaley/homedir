@@ -111,7 +111,7 @@ git_prompt_info() {
 }
 
 git() {
-    if [ "$(/usr/bin/env git rev-parse --show-toplevel 2>/dev/null)" != "$HOME" ]; then
+    if [ "$(/usr/bin/env git rev-parse --show-toplevel 2>/dev/null)" != "$HOME" ] || [ "$1" = "clone" ]; then
         /usr/bin/env git "$@"
         return $?
     else
