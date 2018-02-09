@@ -6,6 +6,7 @@ HOST_TO_TAGS = {
     'biggun': {'linux'},
     'lillun': {'linux'},
     'krrkmac': {'macos', 'work'},
+    'kerrick-dev': {'linux', 'work'},
 }
 
 TAG_TO_HOSTS = {}
