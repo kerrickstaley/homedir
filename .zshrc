@@ -130,6 +130,11 @@ homegit() {
     fi
 }
 
+cgr() {
+    # "change to git root"
+    cd "$(git rev-parse --show-toplevel)"
+}
+
 export EDITOR=vim
 export GOPATH=~/go
 
