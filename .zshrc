@@ -95,7 +95,10 @@ source $ZSH/oh-my-zsh.sh
 export PATH="$PATH:$HOME/bin:$HOME/.gem/ruby/2.4.0/bin/"
 
 if runningon linux; then
-    source /etc/profile.d/vte.sh
+    # this file is present on some distros (Arch) but not needed on others (Ubuntu)
+    if [ -e /etc/profile.d/vte.sh ]; then
+        source /etc/profile.d/vte.sh
+    fi
     pbpaste() {
         xclip -o -selection=clipboard
     }
