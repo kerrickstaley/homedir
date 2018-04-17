@@ -100,7 +100,10 @@ if runningon linux; then
         source /etc/profile.d/vte.sh
     fi
     pbpaste() {
-        xclip -o -selection=clipboard
+        xclip -o -selection clipboard
+    }
+    pbcopy() {
+        xclip -selection clipboard
     }
 fi
 
