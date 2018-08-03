@@ -3,6 +3,7 @@
 # Commands:
 #   zz: Run main.cc or main.py (if main.cc does not exist) on samp_input.txt and pipe to stdout.
 #   zz f: Run main.cc or main.py on input.txt and pipe to output.txt.
+#   zz d: Like zz, but debug mode.
 #   zz ic: Initialize directory with a template main.cc file.
 #   zz ip: Initialize directory with a template main.py file.
 
@@ -12,15 +13,20 @@ import shutil
 import subprocess
 import sys
 
+CC_CMD = 'g++'
+
+
 def main():
   if len(sys.argv) == 1:
-    return run_samp()
+    return run()
   if len(sys.argv) != 2:
     print('Usage error')
     return 1
   cmd = sys.argv[1]
   if cmd == 'f':
-    return run_final()
+    return run(sample=False)
+  if cmd == 'd':
+    return run(debug=True)
   if cmd == 'ic':
     return init_cc()
   if cmd == 'ip':
@@ -29,25 +35,27 @@ def main():
   return 1
 
 
-def run_samp():
-  return run('samp_input.txt')
-
-
-def run_final():
-  return run('input.txt', 'output.txt')
-
-
-def run(inf_path, outf_path=None):
-  if outf_path is None:
-    outf_path = '/dev/stdout'
+def run(sample=True, debug=False):
+  inf_path = 'samp_input.txt' if sample else 'input.txt'
+  outf_path = '/dev/stdout' if sample else 'output.txt'
   if os.path.exists('main.cc'):
-    return run_cc(inf_path, outf_path)
+    return run_cc(inf_path, outf_path, debug=debug)
   else:
-    return run_py(inf_path, outf_path)
+    return run_py(inf_path, outf_path, debug=debug)
 
 
-def run_cc(inf_path, outf_path):
-  if subprocess.call(['g++', '-g', 'main.cc']):
+def run_cc(inf_path, outf_path, debug=False):
+  cc_cmd = [CC_CMD, '--std=c++14']
+  if debug:
+    cc_cmd += ['-g', '-rdynamic', '-x', 'c++', '-DDEBUG', '-']
+    with open('main.cc') as f:
+      stdindata = BACKTRACE_CC_CODE + f.read()
+  else:
+    cc_cmd += ['-O2', 'main.cc']
+    stdindata = ''
+  proc = subprocess.Popen(cc_cmd, stdin=subprocess.PIPE)
+  proc.communicate(stdindata.encode('utf-8'))
+  if proc.wait():
     return 1
   with open(inf_path) as inf, open(outf_path, 'w') as outf:
     return subprocess.call(['./a.out'], stdin=inf, stdout=outf)
@@ -88,6 +96,78 @@ def init_py():
   shutil.copy(skeldir / 'main.py', 'main.py')
   return 0
 
+
+BACKTRACE_CC_CODE = r'''
+#include <stdio.h>
+#include <execinfo.h>
+#include <signal.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <cxxabi.h>
+
+void handler(int sig) {
+  void *array[10];
+  size_t size;
+
+  fprintf(stderr, "Error: signal %d:\n", sig);
+
+  // get void*'s for all entries on the stack
+  size = backtrace(array, 10);
+
+  // get string representations of stack frames
+  char** symbols = backtrace_symbols(array, size);
+
+  // print out symbols, demangling as we go
+  const int mangled_size = 1000;
+  char mangled[mangled_size];
+  for (int i = 0; i < size; i++) {
+    bool in_mangled = false;
+    int mangled_idx = 0;
+    for (char* c = symbols[i]; *c; c++) {
+      if (in_mangled) {
+        if (*c == '+') {
+          in_mangled = false;
+          mangled[mangled_idx] = 0;
+          mangled_idx = 0;  // reset this just in case
+          int status;
+          char* demangled = abi::__cxa_demangle(mangled, nullptr, nullptr, &status);
+
+          if (status == -2) {
+            // no symbol, or a C symbol
+            fputs(mangled, stderr);
+          } else if (status != 0) {
+            fprintf(stderr, "Error demangling string %s! Status was %d. Aborting...\n",  mangled, status);
+            exit(1);
+          } else {
+            fputs(demangled, stderr);
+          }
+          free(demangled);
+        } else {
+          mangled[mangled_idx++] = *c;
+        }
+      }
+      if (!in_mangled) {
+        fputc(*c, stderr);
+        if (*c == '(') {
+          in_mangled = true;
+        }
+      }
+    }
+    fputc('\n', stderr);
+  }
+
+  // backtrace_symbols_fd(array, size, STDERR_FILENO);
+  exit(1);
+}
+
+int install_handlers() {
+  signal(SIGSEGV, handler);
+  signal(SIGABRT, handler);
+  return 0;
+}
+
+int _unused = install_handlers();
+'''
 
 if __name__ == '__main__':
   exit(main())
