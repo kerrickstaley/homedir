@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+# This is a script that I use for programming contests.
+# Commands:
+#   zz: Run main.cc or main.py (if main.cc does not exist) on samp_input.txt and pipe to stdout.
+#   zz f: Run main.cc or main.py on input.txt and pipe to output.txt.
+
+import os
+import subprocess
+import sys
+
+def main():
+  if len(sys.argv) == 1:
+    return run_samp()
+  if len(sys.argv) != 2:
+    print('Usage error')
+    return 1
+  cmd = sys.argv[1]
+  if cmd == 'f':
+    return run_final()
+  print('Usage error')
+  return 1
+
+
+def run_samp():
+  return run('samp_input.txt')
+
+
+def run_final():
+  return run('input.txt', 'output.txt')
+
+
+def run(inf_path, outf_path=None):
+  if outf_path is None:
+    outf_path = '/dev/stdout'
+  if os.path.exists('main.cc'):
+    return run_cc(inf_path, outf_path)
+  else:
+    return run_py(inf_path, outf_path)
+
+
+def run_cc(inf_path, outf_path):
+  if subprocess.call(['g++', '-g', 'main.cc']):
+    return 1
+  with open(inf_path) as inf, open(outf_path, 'w') as outf:
+    return subprocess.call(['./a.out'], stdin=inf, stdout=outf)
+
+
+def run_py(inf_path, outf_path):
+  with open(inf_path) as inf, open(outf_path, 'w') as outf:
+    return subprocess.call(['./main.py'], stdin=inf, stdout=outf)
+
+if __name__ == '__main__':
+  exit(main())
