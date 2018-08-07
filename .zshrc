@@ -144,4 +144,11 @@ cgr() {
 export EDITOR=vim
 export GOPATH=~/go
 
+# Completion configuration
+fpath[1,0]=~/.zsh/completion/
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+autoload -Uz compinit
+compinit
+
 source ~/.zshrc_local
