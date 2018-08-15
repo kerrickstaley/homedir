@@ -151,4 +151,6 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 autoload -Uz compinit
 compinit
 
+ulimit -s unlimited
+
 source ~/.zshrc_local
