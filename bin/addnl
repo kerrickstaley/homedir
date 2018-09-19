@@ -1,2 +1,7 @@
-#!/bin/sh
-sed -e '$a\'
+#!/bin/bash
+args=()
+if [ "$#" != 0 ]; then
+  args=( '-i' "$@" )
+fi
+
+sed -e '$a\' "${args[@]}"
