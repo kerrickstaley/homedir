@@ -107,6 +107,10 @@ if runningon linux; then
     }
 fi
 
+if runningon work; then
+    export PATH="$PATH:/usr/lib/go-1.10/bin"
+fi
+
 # this block prevents the Git status from being shown in the prompt for ~
 # kudos to https://mharrison.org/post/bashfunctionoverride/
 eval "$(declare -f git_prompt_info | sed '1s/git_prompt_info/git_prompt_info_orig/')"
@@ -142,7 +146,9 @@ cgr() {
 }
 
 export EDITOR=vim
+
 export GOPATH=~/go
+export PATH="$HOME/go/bin:$PATH"
 
 # Completion configuration
 fpath[1,0]=~/.zsh/completion/
