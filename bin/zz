@@ -76,7 +76,7 @@ def find_skeldir(name):
         return elem
     p = p.parent
 
-  print(f'Could not find {name} directory!', file=sys.stderr)
+  print('Could not find {} directory!'.format(name), file=sys.stderr)
 
   return None
 
@@ -85,7 +85,7 @@ def init_cc():
   skeldir = find_skeldir('skel_cc')
   if skeldir is None:
     return 1
-  shutil.copy(skeldir / 'main.cc', 'main.cc')
+  shutil.copy(str(skeldir / 'main.cc'), 'main.cc')
   return 0
 
 
@@ -93,7 +93,7 @@ def init_py():
   skeldir = find_skeldir('skel_py')
   if skeldir is None:
     return 1
-  shutil.copy(skeldir / 'main.py', 'main.py')
+  shutil.copy(str(skeldir / 'main.py'), 'main.py')
   return 0
 
 
