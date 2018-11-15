@@ -1,2 +1,7 @@
 #!/bin/bash
-git fetch origin master && git reset --hard origin/master
+set -e
+if ! read -r branch < <(new_git_branch_base "$(git rev-parse --show-toplevel)" 2> /dev/null); then
+  branch=master
+fi
+echo "resetting to origin/$branch" 1>&2
+git fetch origin "$branch" && git reset --hard origin/"$branch"
