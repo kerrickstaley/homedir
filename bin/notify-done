@@ -1,0 +1,2 @@
+#!/bin/bash
+notify-send 'Command is done running.'
