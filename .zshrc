@@ -159,4 +159,7 @@ compinit
 
 ulimit -s unlimited
 
+# only relevant for runningon work && runningon linux, but doesn't hurt elsewhere
+export AWS_OKTA_BACKEND=file
+
 source ~/.zshrc_local
