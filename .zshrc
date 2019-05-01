@@ -162,4 +162,22 @@ ulimit -s unlimited
 # only relevant for runningon work && runningon linux, but doesn't hurt elsewhere
 export AWS_OKTA_BACKEND=file
 
+# Add Python user packages on macOS
+if runningon macos; then
+    for bindir in "$HOME"/Library/Python/*/bin; do
+        # Prepend, so that newer Python versions are preferred and Python bins override system bins
+        export PATH="$bindir:$PATH"
+    done
+fi
+
+# Add Sublime Text to PATH on macOS
+if runningon macos; then
+    export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+fi
+
+# Add VS Code to PATH on macOS
+if runningon macos; then
+    export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+fi
+
 source ~/.zshrc_local
