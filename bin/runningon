@@ -5,7 +5,7 @@ import sys
 HOST_TO_TAGS = {
     'biggun': {'linux'},
     'lillun': {'linux'},
-    'krrkmac': {'macos', 'work'},
+    'kstaley-mbp151': {'macos', 'work'},
     'kerrick-dev': {'linux', 'work'},
     'kerrick-thinkpad': {'linux', 'work'},
 }
