@@ -180,4 +180,8 @@ if runningon macos; then
     export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 fi
 
+# Make other-writeable directories (e.g. on filesystems like FAT which don't have permission bit)
+# appear like normal directories and not unreadable blue-on-green.
+export LS_COLORS="$LS_COLORS:ow=01;34:"
+
 source ~/.zshrc_local
