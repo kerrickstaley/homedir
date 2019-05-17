@@ -31,6 +31,8 @@ def main():
     return init_cc()
   if cmd == 'ip':
     return init_py()
+  if cmd == 'iip':
+    return init_code_jam_interactive_py()
   print('Usage error')
   return 1
 
@@ -94,6 +96,15 @@ def init_py():
   if skeldir is None:
     return 1
   shutil.copy(str(skeldir / 'main.py'), 'main.py')
+  return 0
+
+
+def init_code_jam_interactive_py():
+  skeldir = find_skeldir('skel_code_jam_interactive_py')
+  if skeldir is None:
+    return 1
+  shutil.copy(str(skeldir / 'main.py'), 'main.py')
+  shutil.copy(str(skeldir / 'test.sh'), 'test.sh')
   return 0
 
 
