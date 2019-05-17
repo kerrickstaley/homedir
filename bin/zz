@@ -18,15 +18,12 @@ CC_CMD = 'g++'
 
 def main():
   if len(sys.argv) == 1:
-    return run()
-  if len(sys.argv) != 2:
-    print('Usage error')
-    return 1
+    return run([])
   cmd = sys.argv[1]
   if cmd == 'f':
-    return run(sample=False)
+    return run(sys.argv[2:], sample=False)
   if cmd == 'd':
-    return run(debug=True)
+    return run(sys.argv[2:], debug=True)
   if cmd == 'ic':
     return init_cc()
   if cmd == 'ip':
@@ -37,11 +34,13 @@ def main():
   return 1
 
 
-def run(sample=True, debug=False):
+def run(args, sample=True, debug=False):
   inf_path = 'samp_input.txt' if sample else 'input.txt'
   outf_path = '/dev/stdout' if sample else 'output.txt'
   if os.path.exists('main.cc'):
     return run_cc(inf_path, outf_path, debug=debug)
+  elif os.path.exists('test.sh'):
+    return run_code_jam_interactive_py(args)
   else:
     return run_py(inf_path, outf_path, debug=debug)
 
@@ -66,6 +65,14 @@ def run_cc(inf_path, outf_path, debug=False):
 def run_py(inf_path, outf_path, debug=False):
   with open(inf_path) as inf, open(outf_path, 'w') as outf:
     return subprocess.call(['./main.py'], stdin=inf, stdout=outf)
+
+
+def run_code_jam_interactive_py(args):
+  if args:
+    problem_set = int(args[0])
+  else:
+    problem_set = 1
+  return subprocess.call(['./test.sh', str(problem_set)])
 
 
 def find_skeldir(name):
