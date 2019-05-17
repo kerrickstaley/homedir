@@ -9,11 +9,17 @@
 
 import os
 import pathlib
+import platform
 import shutil
 import subprocess
 import sys
 
-CC_CMD = 'g++'
+
+def gpp_bin():
+  if platform.system() == 'Darwin':
+    return '/usr/local/Cellar/gcc/9.1.0/bin/g++-9'
+  else:
+    return 'g++'
 
 
 def main():
@@ -46,7 +52,7 @@ def run(args, sample=True, debug=False):
 
 
 def run_cc(inf_path, outf_path, debug=False):
-  cc_cmd = [CC_CMD, '--std=c++14']
+  cc_cmd = [gpp_bin(), '--std=c++14']
   if debug:
     cc_cmd += ['-g', '-rdynamic', '-x', 'c++', '-DDEBUG', '-']
     with open('main.cc') as f:
