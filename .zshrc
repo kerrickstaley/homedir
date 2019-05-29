@@ -159,8 +159,9 @@ compinit
 
 ulimit -s unlimited
 
-# only relevant for runningon work && runningon linux, but doesn't hurt elsewhere
-export AWS_OKTA_BACKEND=file
+if runningon work && runningon linux; then
+  export AWS_OKTA_BACKEND=file
+fi
 
 # Add Python user packages on macOS
 if runningon macos; then
