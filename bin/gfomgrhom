@@ -5,3 +5,5 @@ if ! read -r branch < <(new_git_branch_base "$(git rev-parse --show-toplevel)" 2
 fi
 echo "resetting to origin/$branch" 1>&2
 git fetch origin "$branch" && git reset --hard origin/"$branch"
+git submodule foreach --recursive git reset --hard
+git submodule update --recursive
