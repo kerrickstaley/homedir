@@ -1,8 +1,9 @@
 #!/bin/bash
+set -Eeuo pipefail
 if [ "$1" = "off" ]; then
   sudo systemctl disable bumblebeed.service
   sudo pacman -R --noconfirm bumblebee primus lib32-primus
-  killall steam
+  killall steam || true
   sleep 3
   sed -i 's/.*LaunchOptions.*/\t\t\t\t\t\t"LaunchOptions"\t\t"+cl_showfps 2"/' /home/kerrick/.local/share/Steam/userdata/114020487/config/localconfig.vdf
   echo 'Please reboot to activate the change'
@@ -12,7 +13,7 @@ fi
 if [ "$1" = "on" ]; then
   sudo pacman -S --noconfirm bumblebee primus lib32-primus
   sudo systemctl enable bumblebeed.service
-  killall steam
+  killall steam || true
   sleep 3
   sed -i 's/.*LaunchOptions.*/\t\t\t\t\t\t"LaunchOptions"\t\t"primusrun %command% +cl_showfps 2"/' /home/kerrick/.local/share/Steam/userdata/114020487/config/localconfig.vdf
   echo 'Please reboot to activate the change'
