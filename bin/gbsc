@@ -1,2 +1,7 @@
 #!/bin/bash
-git branch --sort=committerdate | tail
+tmpfile="$(mktemp)"
+git branch --sort=committerdate > "$tmpfile"
+if [[ $(wc -l < "$tmpfile") -gt 10 ]]; then
+    echo 'Warning: limiting to last 10 branches...' 2>&1
+fi
+tail "$tmpfile"
