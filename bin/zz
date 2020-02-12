@@ -6,7 +6,9 @@
 #   zz d: Like zz, but debug mode.
 #   zz ic: Initialize directory with a template main.cc file.
 #   zz ip: Initialize directory with a template main.py file.
+#   zz lib: Used for adding libraries to source file.
 
+import collections
 import os
 import pathlib
 import platform
@@ -38,6 +40,8 @@ def main():
     return init_py()
   if cmd == 'iip':
     return init_code_jam_interactive_py()
+  if cmd == 'lib':
+    return add_libs(sys.argv[2:])
   print('Usage error')
   return 1
 
@@ -204,6 +208,92 @@ int install_handlers() {
 
 int _unused = install_handlers();
 '''
+
+
+class Lib:
+  def __init__(self, name, contents, deps):
+    self.name = name
+    self.contents = contents
+    self.deps = deps
+  
+  @classmethod
+  def _libs_dir(cls):
+    return 
+  
+  @classmethod
+  def read(cls, name):
+    git_root = subprocess.check_output(['git', 'rev-parse', '--show-toplevel']).decode('utf-8').strip()
+    fpath = os.path.join(git_root, 'libs_cc', name + '.cc')
+
+    with open(fpath) as f:
+      contents = f.read()
+
+    lines = contents.splitlines(True)
+    if lines[0].startswith('// DEPS:'):
+      deps = lines[0].split(':')[1].split()
+      lines = lines[1:]
+    else:
+      deps = []
+    
+    return cls(name, ''.join(lines), deps)
+
+
+def add_libs(lib_list):
+  # check which libs are already present
+  existing_libs = set()
+  with open('main.cc') as f:
+    lines = f.read().splitlines()
+  for line in lines:
+    line = line.strip()
+    if line.startswith('// LIB '):
+      existing_libs.add(line.split()[-1])
+
+  # load libs
+  loaded = {}
+  to_load = collections.deque(lib_list)
+  while to_load:
+    lib_name = to_load.popleft()
+    if lib_name in loaded:
+      continue
+    loaded[lib_name] = Lib.read(lib_name)
+    to_load.extend(loaded[lib_name].deps)
+
+  out_pieces = []
+
+  # topo sort
+  parents = {}
+  deps_needed = {}
+  for lib in loaded.values():
+    deps_needed[lib.name] = set(lib.deps)
+    for dep in lib.deps:
+      parents.setdefault(dep, [])
+      parents[dep].append(lib.name)
+  frontier = set()
+  for k, v in deps_needed.items():
+    if not v:
+      frontier.add(k)
+  while frontier:
+    lib_name = frontier.pop()
+    if lib_name not in existing_libs:
+      out_pieces.append('// LIB {}\n{}\n'.format(lib_name, loaded[lib_name].contents))
+    for parent in parents.get(lib_name, []):
+      deps_needed[parent].remove(lib_name)
+      if not deps_needed[parent]:
+        frontier.add(parent)
+  if not all(not s for s in deps_needed.values()):
+    raise RuntimeError('Circular dependency in libs!')
+  
+  # inject output into main.cc right before the line "// END LIBS"
+  with open('main.cc') as f:
+    lines = f.read().splitlines(True)
+  for idx, line in enumerate(lines):
+    if line.strip() == '// END LIBS':
+      break
+  lines[idx:idx] = out_pieces
+
+  with open('main.cc', 'w') as f:
+    f.write(''.join(lines))
+  
 
 if __name__ == '__main__':
   exit(main())
