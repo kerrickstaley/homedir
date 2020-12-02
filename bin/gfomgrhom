@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
-if ! read -r branch < <(new_git_branch_base "$(git rev-parse --show-toplevel)" 2> /dev/null); then
+if read -r branch < <(new_git_branch_base "$(git rev-parse --show-toplevel)" 2> /dev/null); then
+  true
+elif git show-ref --verify --quiet refs/heads/main; then
+  branch=main
+else
   branch=master
 fi
 echo "resetting to origin/$branch" 1>&2
