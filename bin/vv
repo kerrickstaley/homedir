@@ -1,4 +1,5 @@
-find "${@:-.}" -name \*.mp4 -o -name \*.mkv -o -name \*.avi -o -name \*.wmv \
+find -L "${@:-.}" -not \( -path \*-tag -prune \) \
+    \( -iname \*.mp4 -o -iname \*.mkv -o -iname \*.avi -o -iname \*.wmv -o -iname \*.mov -o -iname \*.ts -o -iname \*.f4v \) \
 | sort --random-sort \
 | tr '\n' '\0' \
-| xargs -0 mplayer -softvol -volume 0 -fs
+| xargs -0 mplayer -softvol -fs -volume 0
