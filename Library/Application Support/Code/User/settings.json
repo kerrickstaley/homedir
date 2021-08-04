@@ -1,0 +1,22 @@
+{
+    "editor.acceptSuggestionOnEnter": "off",
+    "files.insertFinalNewline": true,
+    "editor.autoClosingBrackets": "never",
+    "rewrap.wrappingColumn": 120,
+    "python.pythonPath": "/usr/local/bin/python3",
+    "editor.parameterHints.enabled": false,
+    "jupyter.sendSelectionToInteractiveWindow": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "editor.autoClosingQuotes": "never",
+    "python.languageServer": "Pylance",
+    "terminal.integrated.tabs.enabled": true,
+    "files.autoSave": "onFocusChange",
+    "security.workspace.trust.untrustedFiles": "open",
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "python.defaultInterpreterPath": "/usr/local/bin/python3"
+}
