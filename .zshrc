@@ -201,4 +201,7 @@ if runningon linux; then
     export JAVA_HOME='/usr/lib/jvm/java-11-openjdk'
 fi
 
+# opam configuration
+[[ ! -r /home/kerrick/.opam/opam-init/init.zsh ]] || source /home/kerrick/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
 source ~/.zshrc_local
