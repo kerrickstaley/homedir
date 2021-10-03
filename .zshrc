@@ -195,4 +195,10 @@ fi
 # Show colors in ls output.
 alias ls='ls --color=auto'
 
+# Add JDK binaries to path on Linux and set JAVA_HOME
+if runningon linux; then
+    export PATH="$PATH:/usr/lib/jvm/java-11-openjdk/bin"
+    export JAVA_HOME='/usr/lib/jvm/java-11-openjdk'
+fi
+
 source ~/.zshrc_local
