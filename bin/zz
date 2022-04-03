@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # This is a script that I use for programming contests.
 # Commands:
-#   zz: Run main.cc or main.py (if main.cc does not exist) on samp_input.txt and pipe to stdout.
+#   zz: Run main.cc or main.py (if main.cc does not exist) on in.txt and pipe to stdout.
 #   zz f: Run main.cc or main.py on input.txt and pipe to output.txt.
 #   zz d: Like zz, but debug mode.
 #   zz ic: Initialize directory with a template main.cc file.
@@ -47,7 +47,7 @@ def main():
 
 
 def run(args, sample=True, debug=False):
-  inf_path = 'samp_input.txt' if sample else 'input.txt'
+  inf_path = 'in.txt' if sample else 'input.txt'
   outf_path = '/dev/stdout' if sample else 'output.txt'
   if os.path.exists('main.cc'):
     return run_cc(inf_path, outf_path, debug=debug)
@@ -75,7 +75,7 @@ def run_cc(inf_path, outf_path, debug=False):
     if ret == 0:
       shutil.copy('main.cc', SUBMISSION_FILE)
     else:
-      pathlib.Path(SUBMISSION_FILE).remove_p()
+      pathlib.Path(SUBMISSION_FILE).unlink(missing_ok=True)
 
 
 def run_py(inf_path, outf_path, debug=False):
@@ -84,7 +84,7 @@ def run_py(inf_path, outf_path, debug=False):
     if ret == 0:
       shutil.copy('main.py', SUBMISSION_FILE)
     else:
-      pathlib.Path(SUBMISSION_FILE).remove_p()
+      pathlib.Path(SUBMISSION_FILE).unlink(missing_ok=True)
     return ret
 
 
