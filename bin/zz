@@ -60,7 +60,7 @@ def run(args, sample=True, debug=False):
 def run_cc(inf_path, outf_path, debug=False):
   cc_cmd = [gpp_bin(), '--std=c++17', '-pthread']
   if debug:
-    cc_cmd += ['-g', '-rdynamic', '-x', 'c++', '-DDEBUG', '-']
+    cc_cmd += ['-g', '-rdynamic', '-x', 'c++', '-DKERRICK_DEBUG', '-']
     with open('main.cc') as f:
       stdindata = BACKTRACE_CC_CODE + f.read()
   else:
