@@ -4,7 +4,7 @@ syntax on
 filetype plugin indent on
 
 " Solarized stuff
-set background=dark
+set background=light
 colorscheme solarized
 
 " Some stuff taken from http://mislav.uniqpath.com/2011/12/vim-revisited/
