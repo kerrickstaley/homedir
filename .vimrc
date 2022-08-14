@@ -1,11 +1,5 @@
-" Pathogen stuff
-execute pathogen#infect()
 syntax on
 filetype plugin indent on
-
-" Solarized stuff
-set background=light
-colorscheme solarized
 
 " Some stuff taken from http://mislav.uniqpath.com/2011/12/vim-revisited/
 set tabstop=4 shiftwidth=4      " a tab is two spaces (or set this to 4)
