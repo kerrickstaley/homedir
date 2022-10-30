@@ -1,0 +1,4 @@
+#!/bin/bash
+loginctl show-session $(loginctl | grep $(whoami) | awk '{print $1}') -p Type
+cat /proc/acpi/bbswitch
+glxinfo | egrep -i 'vendor.*(nvidia|intel)'
