@@ -92,7 +92,12 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.7.0/bin"
+export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
+
+# Add Homebrew Ruby to PATH
+if runningon macos; then
+    export PATH=$(echo /opt/homebrew/Cellar/ruby/*/bin):"$PATH"
+fi
 
 if runningon linux; then
     # this file is present on some distros (Arch) but not needed on others (Ubuntu)
