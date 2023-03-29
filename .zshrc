@@ -145,6 +145,10 @@ homegit() {
     fi
 }
 
+homegit-private() {
+    homegit --git-dir=$HOME/.git-private --work-tree=$HOME "$@"
+}
+
 cgr() {
     # "change to git root"
     cd "$(git rev-parse --show-toplevel)"
