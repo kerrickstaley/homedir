@@ -35,3 +35,6 @@ set noswapfile
 nnoremap <C-B> <C-V>
 " Also map <C-V> to no-op to help me break the habit of using it.
 nnoremap <C-V> <Nop>
+
+"Set the terminal title to the file we're editing
+set title
