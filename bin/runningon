@@ -10,6 +10,7 @@ HOST_TO_TAGS = {
     'kerrick-dev': {'linux', 'work'},
     'kerrick-thinkpad': {'linux', 'work'},
     'Kerricks-Air': {'macos'},
+    'Kerricks-MacBook-Air.local': {'macos'},
 }
 
 TAG_TO_HOSTS = {}
