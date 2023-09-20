@@ -38,3 +38,8 @@ nnoremap <C-V> <Nop>
 
 "Set the terminal title to the file we're editing
 set title
+
+"keep visual mode after indent
+"taken from https://vi.stackexchange.com/questions/8433/how-do-you-indent-without-leaving-visual-mode-and-losing-your-current-select
+vnoremap > >gv^
+vnoremap < <gv^
