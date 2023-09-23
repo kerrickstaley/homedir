@@ -195,3 +195,5 @@ fi
 [[ ! -r /home/kerrick/.opam/opam-init/init.zsh ]] || source /home/kerrick/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 source ~/.zshrc_local
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
