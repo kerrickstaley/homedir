@@ -32,6 +32,11 @@ cgr() {
     cd "$(git rev-parse --show-toplevel)"
 }
 
+csd() {
+    # "change to sub directory"
+    cd $(find * -type d | fzf)
+}
+
 if [[ -f ~/.bashrc_local ]]; then
     source ~/.bashrc_local
 fi
