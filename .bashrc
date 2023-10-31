@@ -21,6 +21,11 @@ csd() {
     cd $(find * -type d | fzf)
 }
 
+cdp() {
+    # Change to parent dir of the given file/dir
+    cd "$(dirname "$1")"
+}
+
 if [[ -f ~/.bashrc_local ]]; then
     source ~/.bashrc_local
 fi
