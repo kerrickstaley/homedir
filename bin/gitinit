@@ -1,5 +1,9 @@
 #!/bin/bash
-set -e
+set -euo pipefail
+if [[ -d .git ]]; then
+   echo 'Error: already in a git directory!' >&2
+   exit 1
+fi
 git init
 touch .gitignore
 git add .gitignore
