@@ -1,7 +1,8 @@
 {
   "CodeCell": {
     "cm_config": {
-      "autoCloseBrackets": false
+      "autoCloseBrackets": false,
+      "autoCloseQuotes": false
     }
   },
   "Cell": {
