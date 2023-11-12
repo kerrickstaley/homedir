@@ -165,9 +165,10 @@ export LS_COLORS="$LS_COLORS:ow=01;34:"
 
 # Default to Gnu binaries on macOS.
 if runningon macos; then
-    export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"  # coreutils
-    export PATH="/usr/local/opt/grep/libexec/gnubin:$PATH"       # grep
-    export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"    # sed
+    export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"  # coreutils
+    export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"       # grep
+    export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"    # sed
+    export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"    # tar
 fi
 
 # Show colors in ls output.
