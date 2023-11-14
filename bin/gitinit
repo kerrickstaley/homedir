@@ -5,6 +5,4 @@ if [[ -d .git ]]; then
    exit 1
 fi
 git init
-touch .gitignore
-git add .gitignore
-git commit -m 'Initial commit'
+git commit -m 'Initial commit' --allow-empty
