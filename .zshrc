@@ -186,12 +186,6 @@ if runningon linux; then
     export JAVA_HOME='/usr/lib/jvm/java-11-openjdk'
 fi
 
-# Add JDK binaries to path on macOS and set JAVA_HOME
-if runningon macos; then
-    export PATH="/opt/homebrew/Cellar/openjdk/19/bin:$PATH"
-    export JAVA_HOME=/opt/homebrew/Cellar/openjdk/19
-fi
-
 # opam configuration
 [[ ! -r /home/kerrick/.opam/opam-init/init.zsh ]] || source /home/kerrick/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
