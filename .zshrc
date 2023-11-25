@@ -112,15 +112,6 @@ if runningon linux; then
     }
 fi
 
-# this block prevents the Git status from being shown in the prompt for ~
-# kudos to https://mharrison.org/post/bashfunctionoverride/
-eval "$(declare -f git_prompt_info | sed '1s/git_prompt_info/git_prompt_info_orig/')"
-git_prompt_info() {
-    if [ "$(/usr/bin/env git rev-parse --show-toplevel 2>/dev/null)" != "$HOME" ]; then
-        git_prompt_info_orig
-    fi
-}
-
 export GOPATH=~/go
 export PATH="$HOME/go/bin:$PATH"
 
