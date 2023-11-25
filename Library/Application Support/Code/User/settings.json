@@ -18,5 +18,6 @@
         "default": "right",
         "jupyter-notebook": "left"
     },
-    "python.defaultInterpreterPath": "/usr/local/bin/python3"
+    "python.defaultInterpreterPath": "/usr/local/bin/python3",
+    "files.trimTrailingWhitespace": true,
 }
