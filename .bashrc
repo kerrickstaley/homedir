@@ -2,7 +2,7 @@
 
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 export EDITOR=vim
-export LESS='-i'
+export LESS="$LESS -i"
 
 homegit() {
     git --git-dir=$HOME/.homegit --work-tree=$HOME "$@"
