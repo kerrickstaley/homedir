@@ -112,10 +112,6 @@ if runningon linux; then
     }
 fi
 
-if runningon work; then
-    export PATH="$PATH:/usr/lib/go-1.10/bin"
-fi
-
 # this block prevents the Git status from being shown in the prompt for ~
 # kudos to https://mharrison.org/post/bashfunctionoverride/
 eval "$(declare -f git_prompt_info | sed '1s/git_prompt_info/git_prompt_info_orig/')"
@@ -136,10 +132,6 @@ autoload -Uz compinit
 compinit
 
 ulimit -s unlimited
-
-if runningon work && runningon linux; then
-  export AWS_OKTA_BACKEND=file
-fi
 
 # Add Python user packages on macOS
 if runningon macos; then
