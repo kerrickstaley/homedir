@@ -155,13 +155,7 @@ if runningon macos; then
 fi
 
 # Show colors in ls output.
-if runningon linux; then
-    alias ls='ls --color=auto'
-fi
-
-if runningon macos; then
-    alias ls='ls -G'
-fi
+alias ls='ls --color=auto'
 
 # Add JDK binaries to path on Linux and set JAVA_HOME
 if runningon linux; then
