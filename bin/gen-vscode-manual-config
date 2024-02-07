@@ -15,7 +15,7 @@ def main():
             Path(os.environ["HOME"]) / ".config/vscode-manual-config/local.json5"
         ) as f:
             local = json5.load(f)
-    except:
+    except FileNotFoundError:
         local = {}
 
     merged = common | local
