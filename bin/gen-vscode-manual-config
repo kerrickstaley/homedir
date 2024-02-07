@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+import json5
+import os
+from pathlib import Path
+
+
+def main():
+    with open(
+        Path(os.environ["HOME"]) / ".config/vscode-manual-config/common.json5"
+    ) as f:
+        common = json5.load(f)
+
+    try:
+        with open(
+            Path(os.environ["HOME"]) / ".config/vscode-manual-config/local.json5"
+        ) as f:
+            local = json5.load(f)
+    except:
+        local = {}
+
+    merged = common | local
+
+    print(json5.dumps(merged, indent=4))
+
+
+if __name__ == "__main__":
+    main()

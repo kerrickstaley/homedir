@@ -1,0 +1,16 @@
+{
+    "workbench.colorTheme": "Default Dark Modern",
+    "keyboard.dispatch": "keyCode",
+    "vim.vimrc.enable": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "vim.handleKeys": {
+        "<C-p>": false,
+    },
+    "vim.useSystemClipboard": true,
+    "files.autoSave": "onFocusChange",
+    "editor.autoClosingBrackets": "never",
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.insertFinalNewline": true,
+}
