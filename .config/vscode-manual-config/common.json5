@@ -11,6 +11,7 @@
     "vim.useSystemClipboard": true,
     "files.autoSave": "onFocusChange",
     "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
     "security.workspace.trust.untrustedFiles": "open",
     "files.insertFinalNewline": true,
 }
