@@ -20,7 +20,7 @@ def main():
 
     merged = common | local
 
-    print(json5.dumps(merged, indent=4))
+    print(json5.dumps(merged, indent=4, quote_keys=True))
 
 
 if __name__ == "__main__":
