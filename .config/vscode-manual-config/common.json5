@@ -6,9 +6,10 @@
         "editor.defaultFormatter": "ms-python.python"
     },
     "vim.handleKeys": {
-        "<C-p>": false,
+        "<C-b>": false,
         "<C-f>": false,
         "<C-h>": false,
+        "<C-p>": false,
     },
     "vim.useSystemClipboard": true,
     "files.autoSave": "onFocusChange",
