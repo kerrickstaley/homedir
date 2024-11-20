@@ -3,6 +3,7 @@
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 export EDITOR=vim
 export LESS="$LESS -i"
+export GIT_PAGER="less $LESS -FRSX"
 
 homegit() {
     git --git-dir=$HOME/.homegit --work-tree=$HOME "$@"
