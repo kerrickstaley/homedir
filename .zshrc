@@ -94,9 +94,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.bashrc
 
-# Add Homebrew Ruby to PATH
 if runningon macos; then
+    # Add Homebrew Ruby to PATH
     export PATH=$(echo /opt/homebrew/Cellar/ruby/*/bin):"$PATH"
+    # Add VLC to PATH
+    export PATH="/Applications/VLC.app/Contents/MacOS:$PATH"
 fi
 
 if runningon linux; then
