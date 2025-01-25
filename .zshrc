@@ -11,7 +11,7 @@ fi
 
 if runningon macos; then
     # Add Homebrew Ruby to PATH
-    export PATH=$(echo /opt/homebrew/Cellar/ruby/*/bin):"$PATH"
+    export PATH=$(echo /opt/homebrew/Cellar/ruby/*/bin(N)):"$PATH"
     # Add VLC to PATH
     export PATH="/Applications/VLC.app/Contents/MacOS:$PATH"
 fi
@@ -43,7 +43,7 @@ ulimit -s unlimited
 
 # Add Python user packages on macOS
 if runningon macos; then
-    for bindir in "$HOME"/Library/Python/*/bin; do
+    for bindir in "$HOME"/Library/Python/*/bin(N); do
         # Prepend, so that newer Python versions are preferred and Python bins override system bins
         export PATH="$bindir:$PATH"
     done
