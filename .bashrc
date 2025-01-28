@@ -2,7 +2,7 @@
 
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 export EDITOR=vim
-export LESS="$LESS -i"
+export LESS="$LESS -i --mouse"
 export GIT_PAGER="less $LESS -FRSX"
 
 homegit() {
