@@ -1,35 +1,26 @@
 #!/usr/bin/env python3
+from pathlib import Path
+import platform
 import socket
 import sys
 
-# Note: You can put tags like "home" or "work" here, but I don't currently do this.
-HOST_TO_TAGS = {
-    'biggun': {'linux'},
-    'lillun': {'linux'},
-    'Kerricks-Air': {'macos'},
-    'Kerricks-Air.lan': {'macos'},
-    'Kerricks-MacBook-Air.local': {'macos'},
-    'Kerrick-Staley-MacBook': {'macos', 'work'},
-    'steamdeck': {'linux'},
-}
-
-TAG_TO_HOSTS = {}
-for host, tags in HOST_TO_TAGS.items():
-    for tag in tags:
-        TAG_TO_HOSTS.setdefault(tag, set())
-        TAG_TO_HOSTS[tag].add(host)
-
-
 hostname = socket.gethostname()
+system = platform.system().lower()
 
-for arg in sys.argv[1:]:
-    if arg in HOST_TO_TAGS:
-        if arg == hostname:
-            sys.exit(0)
-    elif arg in TAG_TO_HOSTS:
-        if hostname in TAG_TO_HOSTS[arg]:
-            sys.exit(0)
-    else:
-        raise Exception('Unrecognized argument {}!'.format(sys.argv[1]))
+try:
+    with open(Path.home() / '.runningon_tags') as f:
+        host_tags = set(f.read().strip().split())
+except FileNotFoundError:
+    host_tags = set()
+
+arg = sys.argv[1]
+if arg == 'macos' and system == 'darwin':
+    sys.exit(0)
+elif arg == 'linux' and system == 'linux':
+    sys.exit(0)
+elif arg == hostname:
+    sys.exit(0)
+elif arg in host_tags:
+    sys.exit(0)
 
 sys.exit(1)
