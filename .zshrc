@@ -83,6 +83,10 @@ fi
 # opam configuration
 [[ ! -r /home/kerrick/.opam/opam-init/init.zsh ]] || source /home/kerrick/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
+# ~unlimited history
+HISTSIZE=10000000
+SAVEHIST=10000000
+
 source ~/.zshrc_local
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
