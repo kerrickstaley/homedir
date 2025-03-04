@@ -2,26 +2,92 @@
 import os
 import subprocess
 import sys
+from pathlib import Path
 
 
-def get_base_branch():
-    if (
+def get_base_branches():
+    ret = ["main", "master"]
+
+    # Read additional branches from ~/.prdiff_bases if it exists
+    prdiff_bases_path = Path.home() / ".prdiff_bases"
+    if prdiff_bases_path.exists():
+        with open(prdiff_bases_path, "r") as f:
+            for line in f:
+                branch = line.strip()
+                if branch:
+                    ret.append(branch)
+
+    return ret
+
+
+def branch_exists_on_origin(branch):
+    """Check if a branch exists on the remote 'origin'."""
+    return (
         subprocess.run(
-            ["git", "rev-parse", "--verify", "main"], capture_output=True
+            ["git", "rev-parse", f"origin/{branch}"],
+            capture_output=True,
+            check=False,
         ).returncode
         == 0
-    ):
-        return "main"
-    return "master"
+    )
+
+
+def is_strict_ancestor_of(ancestor, descendant):
+    ancestor = subprocess.run(
+        ["git", "rev-parse", ancestor],
+        capture_output=True,
+    ).stdout.strip()
+    descendant = subprocess.run(
+        ["git", "rev-parse", descendant],
+        capture_output=True,
+    ).stdout.strip()
+
+    if ancestor == descendant:
+        return False
+
+    return (
+        subprocess.run(
+            ["git", "merge-base", "--is-ancestor", ancestor, descendant],
+            capture_output=True,
+        ).returncode
+        == 0
+    )
+
+
+def maximal_commits(commits: list[str]):
+    """
+    Given set of commits, return the subset that are not ancestors of anyone else in the list.
+    """
+    ret = []
+    for commit in commits:
+        if not any(
+            is_strict_ancestor_of(commit, other_commit) for other_commit in commits
+        ):
+            ret.append(commit)
+    return ret
+
+
+def find_best_merge_base():
+    base_branches = [
+        branch for branch in get_base_branches() if branch_exists_on_origin(branch)
+    ]
+    merge_bases = [
+        subprocess.check_output(
+            ["git", "merge-base", f"origin/{branch}", "HEAD"],
+            text=True,
+            stderr=subprocess.DEVNULL,
+        ).strip()
+        for branch in base_branches
+    ]
+    maximal_bases = maximal_commits(merge_bases)
+    if len(maximal_bases) != 1:
+        raise RuntimeError(f"Expected exactly merge base, but got {maximal_bases}")
+
+    return maximal_bases[0]
 
 
 def main():
-    base_branch = get_base_branch()
-
-    merge_base = subprocess.check_output(
-        ["git", "merge-base", f"origin/{base_branch}", "HEAD"], text=True
-    ).strip()
-
+    merge_base = find_best_merge_base()
     os.execvp("git", ["git", "diff", merge_base] + sys.argv[1:])
 
 
