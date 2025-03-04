@@ -1,7 +1,29 @@
-#!/bin/bash
-set -e
-if ! read -r branch < <(new_git_branch_base "$(git rev-parse --show-toplevel)" 2> /dev/null); then
-  branch=master
-fi
-base="$(git merge-base origin/${branch} HEAD)"
-git diff "$base" "$@"
+#!/usr/bin/env python3
+import os
+import subprocess
+import sys
+
+
+def get_base_branch():
+    if (
+        subprocess.run(
+            ["git", "rev-parse", "--verify", "main"], capture_output=True
+        ).returncode
+        == 0
+    ):
+        return "main"
+    return "master"
+
+
+def main():
+    base_branch = get_base_branch()
+
+    merge_base = subprocess.check_output(
+        ["git", "merge-base", f"origin/{base_branch}", "HEAD"], text=True
+    ).strip()
+
+    os.execvp("git", ["git", "diff", merge_base] + sys.argv[1:])
+
+
+if __name__ == "__main__" and not hasattr(sys, "ps1"):
+    main()
