@@ -1,2 +1,2 @@
 #!/bin/bash
-exec ipython -i -c 'from math import *; import numpy as np; import pandas as pd' --no-banner
+exec ipython -i -c 'from math import *; import numpy as np; import pandas as pd; import random' --no-banner
