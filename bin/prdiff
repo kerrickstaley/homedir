@@ -64,7 +64,7 @@ def maximal_commits(commits: list[str]):
             is_strict_ancestor_of(commit, other_commit) for other_commit in commits
         ):
             ret.append(commit)
-    return ret
+    return list(set(ret))
 
 
 def find_best_merge_base():
