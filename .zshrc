@@ -90,3 +90,5 @@ SAVEHIST=10000000
 source ~/.zshrc_local
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+setopt INC_APPEND_HISTORY
