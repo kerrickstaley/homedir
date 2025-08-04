@@ -1,0 +1,31 @@
+#!/usr/bin/env -Suv run --script
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "icmplib",
+#     "numpy",
+# ]
+# ///
+
+import argparse
+import icmplib
+import numpy as np
+
+argparser = argparse.ArgumentParser(description="Ping multiple hosts and print the results")
+argparser.add_argument("hosts", nargs="*", help="list of hosts to ping")
+argparser.add_argument('-c', type=int, help="number of pings to send, default 100", default=100)
+
+def main(args) -> None:
+    hosts = icmplib.multiping(args.hosts, count=args.c, privileged=False)
+    hosts.sort(key=lambda h: h.avg_rtt)
+    stddevs = np.std([h.rtts for h in hosts], axis=1)
+    vars = stddevs ** 2
+    varfrac = vars / vars[-1]
+    addl_var_frac = np.diff(varfrac, prepend=0)
+
+    for i, host in enumerate(hosts):
+        print(f'{host.address + ':':<15} avg_rtt={host.avg_rtt:.2f}ms stddev={stddevs[i]:.2f}ms addl_var_frac={addl_var_frac[i]:.2f}ms^2')
+
+
+if __name__ == "__main__":
+    main(argparser.parse_args())
