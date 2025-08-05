@@ -18,13 +18,13 @@ argparser.add_argument('-c', type=int, help="number of pings to send, default 10
 def main(args) -> None:
     hosts = icmplib.multiping(args.hosts, count=args.c, privileged=False)
     hosts.sort(key=lambda h: h.avg_rtt)
-    stddevs = np.std([h.rtts for h in hosts], axis=1)
+    stddevs = np.array([np.std(h.rtts) for h in hosts])
     vars = stddevs ** 2
     varfrac = vars / vars[-1]
     addl_var_frac = np.diff(varfrac, prepend=0)
 
     for i, host in enumerate(hosts):
-        print(f'{host.address + ':':<15} avg_rtt={host.avg_rtt:.2f}ms stddev={stddevs[i]:.2f}ms addl_var_frac={addl_var_frac[i]:.2f}ms^2')
+        print(f'{host.address + ':':<15} avg_rtt={host.avg_rtt:>5.2f}ms stddev={stddevs[i]:>5.2f}ms addl_var_frac={addl_var_frac[i]:.2f} loss={host.packet_loss}')
 
 
 if __name__ == "__main__":
