@@ -1,0 +1,8 @@
+#!/bin/bash
+# "Claude Fix TODOs"
+set -euo pipefail
+if [ $# -eq 0 ]; then
+    claude "Fix the \"todo claude\" items in this codebase"
+else
+    claude "Fix the \"todo claude\" items in $1"
+fi
