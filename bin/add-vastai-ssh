@@ -4,6 +4,8 @@ import re
 import subprocess
 import sys
 import os
+from pathlib import Path
+import textwrap
 
 def get_clipboard_content():
     """Get content from clipboard"""
@@ -19,49 +21,34 @@ def parse_ssh_command(ssh_cmd):
     # Pattern to match: ssh -p PORT USER@HOST -L ...
     pattern = r'ssh\s+-p\s+(\d+)\s+(\w+)@([\d\.]+)'
     match = re.match(pattern, ssh_cmd)
-    
+
     if not match:
         print(f"Error: Clipboard content doesn't match expected SSH format")
         print(f"Expected format: ssh -p PORT USER@HOST -L ...")
         print(f"Got: {ssh_cmd}")
         sys.exit(1)
-    
+
     port, user, host = match.groups()
     return host, port, user
 
-def remove_vastai_remote():
-    """Remove existing vastai remote, ignore if not present"""
-    try:
-        subprocess.run(['git', 'remote', 'rm', 'vastai'], 
-                      capture_output=True, check=False)
-    except Exception:
-        pass
-
-def add_vastai_remote(host, port, user):
+def add_vastai_ssh(host, port, user):
     """Add new vastai remote"""
-    cwd_name = os.path.basename(os.getcwd())
-    remote_url = f"ssh://{user}@{host}:{port}/root/{cwd_name}"
-    
-    try:
-        result = subprocess.run(['git', 'remote', 'add', 'vastai', remote_url], 
-                               capture_output=True, text=True, check=True)
-        print(f"Added vastai remote: {remote_url}")
-    except subprocess.CalledProcessError as e:
-        print(f"Error adding remote: {e.stderr}")
-        sys.exit(1)
+    with open(Path.home() / '.ssh/config.d/vastai', 'w') as f:
+        f.write(textwrap.dedent(f'''\
+            Host vastai
+              Hostname {host}
+              User {user}
+              Port {port}
+            '''))
 
 def main():
     # Get clipboard content
     clipboard_content = get_clipboard_content()
-    
+
     # Parse SSH command
     host, port, user = parse_ssh_command(clipboard_content)
-    
-    # Remove existing vastai remote
-    remove_vastai_remote()
-    
-    # Add new vastai remote
-    add_vastai_remote(host, port, user)
+
+    add_vastai_ssh(host, port, user)
 
 if __name__ == "__main__":
     main()
