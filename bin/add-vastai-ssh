@@ -39,6 +39,7 @@ def add_vastai_ssh(host, port, user):
               Hostname {host}
               User {user}
               Port {port}
+              SendEnv WANDB_API_KEY
             '''))
 
 def main():
