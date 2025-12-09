@@ -1,0 +1,81 @@
+#!/usr/bin/env python3
+
+import re
+import subprocess
+import sys
+from pathlib import Path
+import textwrap
+
+def err(*args, **kwargs):
+    kwargs['file'] = sys.stderr
+    return print(*args, **kwargs)
+
+def get_clipboard_content():
+    """Get content from clipboard"""
+    try:
+        result = subprocess.run(['pbpaste'], capture_output=True, text=True)
+        return result.stdout.strip()
+    except Exception as e:
+        print(f"Error getting clipboard content: {e}")
+        sys.exit(1)
+
+def parse_ssh_command(ssh_cmd):
+    """Parse SSH command to extract host, port, and user
+
+    Supports two formats:
+    1. ssh -p PORT USER@HOST -L ...
+    2. ssh USER@HOST
+
+    Return:
+        Tuple of host, port, user.
+    """
+    pattern = r'ssh\s+(?:-p\s+(\d+)\s+)?(\w+)@([\d\.]+)'
+    match = re.search(pattern, ssh_cmd)
+
+    if not match:
+        err("Error: Clipboard content doesn't match expected SSH format")
+        err("Expected formats:")
+        err("  - ssh -p PORT USER@HOST -L ...")
+        err("  - ssh USER@HOST")
+        err(f"Got: {ssh_cmd}")
+        sys.exit(1)
+
+    port, user, host = match.groups()
+
+    if port is None:
+        port = "22"
+
+    return host, port, user
+
+def add_gpu_ssh(host, port, user, provider):
+    """Add new GPU remote for the specified provider"""
+    config_file = Path.home() / f'.ssh/config.d/{provider}'
+    with open(config_file, 'w') as f:
+        f.write(textwrap.dedent(f'''\
+            Host {provider}
+              Hostname {host}
+              User {user}
+              Port {port}
+              SendEnv WANDB_API_KEY
+            '''))
+
+def main():
+    # Determine provider based on script name
+    script_name = Path(sys.argv[0]).name
+    match = re.search('^add-(.+)-ssh$', script_name)
+    if not match:
+        raise ValueError('Could not extract provider from script name; expected add-foo-ssh')
+    provider = match.group(1)
+
+    # Get clipboard content
+    clipboard_content = get_clipboard_content()
+
+    # Parse SSH command
+    host, port, user = parse_ssh_command(clipboard_content)
+
+    add_gpu_ssh(host, port, user, provider)
+
+    print(f"Added {provider} SSH config: {user}@{host}:{port}")
+
+if __name__ == "__main__":
+    main()
