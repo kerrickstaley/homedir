@@ -1,0 +1,8 @@
+#!/bin/bash
+set -euo pipefail
+gitinit
+uv init
+uv lock
+git add pyproject.toml uv.lock .python-version
+git commit -m 'uv init'
+rm README.md main.py
