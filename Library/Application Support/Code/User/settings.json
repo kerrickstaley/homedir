@@ -5,7 +5,6 @@
     "rewrap.wrappingColumn": 120,
     "python.pythonPath": "/usr/local/bin/python3",
     "editor.parameterHints.enabled": false,
-    "jupyter.sendSelectionToInteractiveWindow": true,
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
     },
@@ -30,5 +29,6 @@
     ],
     "git.blame.editorDecoration.enabled": true,
     "workbench.colorTheme": "Default Light Modern",
+    "jupyter.interactiveWindow.textEditor.executeSelection": true,
     "editor.codeLens": false,
 }
