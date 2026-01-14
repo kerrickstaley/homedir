@@ -3,6 +3,7 @@ set -euo pipefail
 gitinit
 uv init
 uv lock
+uv venv
 echo '__pycache__' > .gitignore
 git add pyproject.toml uv.lock .python-version .gitignore
 git commit -m 'uv init'
