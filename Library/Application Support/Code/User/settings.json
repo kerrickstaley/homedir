@@ -17,7 +17,6 @@
         "default": "right",
         "jupyter-notebook": "left"
     },
-    "python.defaultInterpreterPath": "/usr/local/bin/python3",
     "files.trimTrailingWhitespace": true,
     "nrf-connect.enableTelemetry": false,
     "anyscalecompute.ray-distributed-debugger.initialized": true,
