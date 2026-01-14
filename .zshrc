@@ -5,6 +5,7 @@ if ! runningon work; then
     ZSH_THEME="robbyrussell"
     plugins=(
         git
+        direnv
     )
     source $ZSH/oh-my-zsh.sh
 fi
