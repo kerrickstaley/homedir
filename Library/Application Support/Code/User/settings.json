@@ -20,4 +20,14 @@
     },
     "python.defaultInterpreterPath": "/usr/local/bin/python3",
     "files.trimTrailingWhitespace": true,
+    "nrf-connect.enableTelemetry": false,
+    "anyscalecompute.ray-distributed-debugger.initialized": true,
+    "anyscalecompute.ray-distributed-debugger.clusterDashboards": [
+        {
+            "host": "127.0.0.1:8265",
+            "localRoot": "${workspaceFolder}"
+        }
+    ],
+    "git.blame.editorDecoration.enabled": true,
+    "workbench.colorTheme": "Default Light Modern",
 }
