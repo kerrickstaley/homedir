@@ -30,4 +30,5 @@
     ],
     "git.blame.editorDecoration.enabled": true,
     "workbench.colorTheme": "Default Light Modern",
+    "editor.codeLens": false,
 }
