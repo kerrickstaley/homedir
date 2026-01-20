@@ -30,4 +30,7 @@
     "workbench.colorTheme": "Default Light Modern",
     "jupyter.interactiveWindow.textEditor.executeSelection": true,
     "editor.codeLens": false,
+    "editor.wordWrap": "on",
+    "notebook.output.scrolling": true,
+    "editor.inlayHints.enabled": "offUnlessPressed",
 }
