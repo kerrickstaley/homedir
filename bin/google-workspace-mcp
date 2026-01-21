@@ -3,4 +3,4 @@ set -euo pipefail
 export GOOGLE_OAUTH_CLIENT_ID="$LC_GOOGLE_WORKSPACE_MCP_GOOGLE_OAUTH_CLIENT_ID"
 export GOOGLE_OAUTH_CLIENT_SECRET="$LC_GOOGLE_WORKSPACE_MCP_GOOGLE_OAUTH_CLIENT_SECRET"
 export USER_GOOGLE_EMAIL='kerrick@kerrickstaley.com'
-uvx workspace-mcp --tools docs
+uvx workspace-mcp --tools docs drive
