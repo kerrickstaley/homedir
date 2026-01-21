@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp"
+    },
+    "google_workspace": {
+      "command": "google-workspace-mcp"
+    }
+  }
+}
