@@ -9,5 +9,3 @@
 	autoSetupRemote = true
 [include]
     path = .gitconfig_local
-[core]
-	excludesFile = ~/.gitignore_global
