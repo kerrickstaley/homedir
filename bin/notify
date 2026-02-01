@@ -1,0 +1,3 @@
+#!/bin/bash
+set -euo pipefail
+curl -d "$*" ntfy.sh/"$NTFY_SH_TOPIC"
