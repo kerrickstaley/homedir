@@ -1,2 +1,2 @@
 #!/bin/bash
-exec ipython -i -c 'from math import *; import numpy as np; import pandas as pd; import random' --no-banner
+exec uvx --with numpy,polars,pandas -- ipython -i -c 'from math import *; import numpy as np; import polars as pl; import random' --no-banner
