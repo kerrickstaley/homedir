@@ -8,6 +8,7 @@ Be succinct. When writing code, only comment when necessary and aim to write ter
 - Use Plotly, not Matplotlib, for making graphs.
 - Use Polars, not Pandas, for doing data analysis.
 - When I ask you to "write a script with a shebang", the shebang should be "#!/usr/bin/env -S uv run" and you should chmod the file +x.
+- When I ask you to run logging.basicConfig, you should call logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S', level=logging.INFO)
 
 # Git
 - All repos (for both my projects and others' projects) are under ~/src.
