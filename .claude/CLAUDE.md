@@ -1,5 +1,6 @@
 # General
-Be succinct. When writing code, only comment when necessary and aim to write terse code that is still readable.
+- Be succinct. When writing code, only comment when necessary and aim to write terse code that is still readable.
+- If the user explicitly asks you to send them a notification, run "notify your message here" in Bash.
 
 # Python
 - Use single quotes instead of double quotes.
