@@ -3,9 +3,9 @@
 - If the user explicitly asks you to send them a notification, run "notify your message here" in Bash.
 
 # Python
+- IMPORTANT: I usually use `uv`, not the system Python interpreter. When trying to run Python code in a project, always try uv first. Only try the system python3 interpreter if uv does not work.
 - Use single quotes instead of double quotes.
 - Make all function arguments required, unless the user will want to use the default value most of the time.
-- Most of my Python projects use uv. When trying to run code in a project, assume it uses uv and only fall back to the system python3 interpreter if uv does not work.
 - Use Plotly, not Matplotlib, for making graphs.
 - Use Polars, not Pandas, for doing data analysis.
 - When I ask you to "write a script with a shebang", the shebang should be "#!/usr/bin/env -S uv run" and you should chmod the file +x.
