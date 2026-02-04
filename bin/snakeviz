@@ -1,0 +1,5 @@
+#!/bin/bash
+# Uses a ~random port. When running SnakeViz on a remote host over SSH, add this to your SSH config:
+#   LocalForward 4183 localhost:4183
+set -euo pipefail
+exec uvx snakeviz --port 4183 --server "$@"
