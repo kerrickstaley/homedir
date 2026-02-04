@@ -86,7 +86,7 @@ fi
 HISTSIZE=10000000
 SAVEHIST=10000000
 
-source ~/.zshrc_local
+[ -f ~/.zshrc_local ] && source ~/.zshrc_local
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
