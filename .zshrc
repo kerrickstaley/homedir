@@ -91,3 +91,7 @@ SAVEHIST=10000000
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 setopt INC_APPEND_HISTORY
+
+if runningon vps; then
+    export MUJOCO_GL=egl
+fi
