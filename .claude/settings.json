@@ -3,5 +3,9 @@
         "allow": [
             "Bash(notify *)"
         ]
+    },
+    "attribution": {
+        "commit": "",
+        "pr": ""
     }
 }
