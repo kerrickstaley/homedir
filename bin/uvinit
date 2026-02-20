@@ -5,6 +5,16 @@ uv init
 uv lock
 uv venv
 echo '__pycache__' > .gitignore
-git add pyproject.toml uv.lock .python-version .gitignore
+cat >> pyproject.toml << 'EOF'
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = "."
+module-name = []
+EOF
+git add pyproject.toml uv.lock .python-version .gitignore README.md
 git commit -m 'uv init'
-rm README.md main.py
+rm main.py
