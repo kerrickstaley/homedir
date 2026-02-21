@@ -68,6 +68,7 @@ if runningon macos; then
     export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"       # grep
     export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"    # sed
     export PATH="/opt/homebrew/opt/gnu-tar/libexec/gnubin:$PATH"    # tar
+    export PATH="/opt/homebrew/opt/findutils/libexec/gnubin:$PATH"  # find
 fi
 
 # Show colors in ls output.
