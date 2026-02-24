@@ -23,4 +23,7 @@
     "editor.wordWrap": "on",
     "notebook.output.scrolling": true,
     "editor.inlayHints.enabled": "offUnlessPressed",
+    "claudeCode.allowDangerouslySkipPermissions": true,
+    # accessibilitySupport is used by Wispr
+    "editor.accessibilitySupport": "on",
 }
