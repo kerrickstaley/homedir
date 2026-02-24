@@ -3,7 +3,6 @@
     "files.insertFinalNewline": true,
     "editor.autoClosingBrackets": "never",
     "rewrap.wrappingColumn": 120,
-    "python.pythonPath": "/usr/local/bin/python3",
     "editor.parameterHints.enabled": false,
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
@@ -18,17 +17,8 @@
         "jupyter-notebook": "left"
     },
     "files.trimTrailingWhitespace": true,
-    "nrf-connect.enableTelemetry": false,
-    "anyscalecompute.ray-distributed-debugger.initialized": true,
-    "anyscalecompute.ray-distributed-debugger.clusterDashboards": [
-        {
-            "host": "127.0.0.1:8265",
-            "localRoot": "${workspaceFolder}"
-        }
-    ],
     "git.blame.editorDecoration.enabled": true,
     "workbench.colorTheme": "Default Light Modern",
-    "jupyter.interactiveWindow.textEditor.executeSelection": true,
     "editor.codeLens": false,
     "editor.wordWrap": "on",
     "notebook.output.scrolling": true,
