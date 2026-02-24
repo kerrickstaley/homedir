@@ -1,11 +1,12 @@
 {
-    "permissions": {
-        "allow": [
-            "Bash(notify *)"
-        ]
-    },
-    "attribution": {
-        "commit": "",
-        "pr": ""
-    }
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(notify *)"
+    ]
+  },
+  "skipDangerousModePermissionPrompt": true
 }
