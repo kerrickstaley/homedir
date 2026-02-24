@@ -26,4 +26,42 @@
     "claudeCode.allowDangerouslySkipPermissions": true,
     # accessibilitySupport is used by Wispr
     "editor.accessibilitySupport": "on",
+} + {
+    # turning on accessibilitySupport turns on all these sound effects and we have to individually disable them
+    ["accessibility.signals." + signal]: { sound: "off" }
+    for signal in [
+        "lineHasBreakpoint",
+        "chatEditModifiedFile",
+        "chatRequestSent",
+        "chatResponseReceived",
+        "chatUserActionRequired",
+        "clear",
+        "codeActionApplied",
+        "codeActionTriggered",
+        "onDebugBreak",
+        "diffLineDeleted",
+        "diffLineInserted",
+        "diffLineModified",
+        "editsKept",
+        "positionHasError",
+        "lineHasError",
+        "lineHasFoldedArea",
+        "lineHasInlineSuggestion",
+        "nextEditSuggestion",
+        "noInlayHints",
+        "notebookCellCompleted",
+        "notebookCellFailed",
+        "progress",
+        "taskCompleted",
+        "taskFailed",
+        "terminalBell",
+        "terminalCommandFailed",
+        "terminalCommandSucceeded",
+        "terminalQuickFix",
+        "editsUndone",
+        "voiceRecordingStarted",
+        "voiceRecordingStopped",
+        "positionHasWarning",
+        "lineHasWarning",
+    ]
 }
