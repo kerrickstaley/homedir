@@ -1,2 +1,15 @@
 #!/bin/bash
-exec uvx --with numpy,polars,pandas,scipy -- ipython -i -c 'from math import *; import numpy as np; import polars as pl; import random; import scipy' --no-banner
+exec uvx --with numpy,polars,pandas,scipy -- ipython -i --no-banner -c "$(cat <<'EOF'
+from math import *
+import numpy as np
+import polars as pl
+import random
+import scipy
+from pathlib import Path
+
+def logit10(x):
+    return float(scipy.special.logit(x) / log(10))
+
+def expit10(x):
+    return float(scipy.special.expit(x * log(10)))
+)"
