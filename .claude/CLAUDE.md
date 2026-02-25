@@ -10,6 +10,7 @@
 - Use Polars, not Pandas, for doing data analysis.
 - When I ask you to "write a script with a shebang", the shebang should be "#!/usr/bin/env -S uv run python" and you should chmod the file +x.
 - When I ask you to run logging.basicConfig, you should call logging.basicConfig(format='%(asctime)s %(levelname)s %(name)s: %(message)s', datefmt='%Y-%m-%d %H:%M:%S', level=logging.INFO)
+- When I ask you to make a notebook, you should create a .py file using Jupytext-style # %% comments to separate cells, not a .ipynb file.
 
 # Git
 - All repos (for both my projects and others' projects) are under ~/src.
