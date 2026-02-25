@@ -26,6 +26,7 @@
     "claudeCode.allowDangerouslySkipPermissions": true,
     # accessibilitySupport is used by Wispr
     "editor.accessibilitySupport": "on",
+    "jupyter.askForKernelRestart": false,
 } + {
     # turning on accessibilitySupport turns on all these sound effects and we have to individually disable them
     ["accessibility.signals." + signal]: { sound: "off" }
