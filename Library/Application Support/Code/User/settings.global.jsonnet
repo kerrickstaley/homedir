@@ -24,9 +24,12 @@
     "notebook.output.scrolling": true,
     "editor.inlayHints.enabled": "offUnlessPressed",
     "claudeCode.allowDangerouslySkipPermissions": true,
+    "claudeCode.initialPermissionMode": "bypassPermissions",
+    "claudeCode.preferredLocation": "sidebar",
     # accessibilitySupport is used by Wispr
     "editor.accessibilitySupport": "on",
     "jupyter.askForKernelRestart": false,
+    "window.confirmSaveUntitledWorkspace": false,
 } + {
     # turning on accessibilitySupport turns on all these sound effects and we have to individually disable them
     ["accessibility.signals." + signal]: { sound: "off" }
