@@ -30,6 +30,8 @@
     "editor.accessibilitySupport": "on",
     "jupyter.askForKernelRestart": false,
     "window.confirmSaveUntitledWorkspace": false,
+    # 1:1 mapping between Jupyter interactive windows and .py source files
+    "jupyter.interactiveWindow.creationMode": "perFile",
 } + {
     # turning on accessibilitySupport turns on all these sound effects and we have to individually disable them
     ["accessibility.signals." + signal]: { sound: "off" }

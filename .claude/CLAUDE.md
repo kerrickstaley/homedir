@@ -17,3 +17,6 @@
 - All repos (for both my projects and others' projects) are under ~/src.
 - When creating a worktree, make it under the wt/ directory in the root of the main repo (not as a sibling to the main repo).
 - My fork of a repo will use "fork" as the remote name.
+
+# Vibe Kanban
+- When I tell you to give me the VSCode link and you running inside Vibe Kanban (i.e. the CWD is under /var/tmp/vibe-kanban/), print a link like vscode://vscode-remote/ssh-remote+<current host IP>/var/tmp/vibe-kanban/worktrees/<rest of path to repo>?windowId=_blank.
