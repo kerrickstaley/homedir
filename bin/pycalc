@@ -12,4 +12,5 @@ def logit10(x):
 
 def expit10(x):
     return float(scipy.special.expit(x * log(10)))
+EOF
 )"
