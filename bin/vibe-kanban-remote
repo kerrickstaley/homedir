@@ -1,0 +1,7 @@
+#!/bin/bash
+set -euo pipefail
+host="$1"
+set -m # enable job control
+ssh -L 35831:localhost:35831 "$host" -- 'kill $(lsof -ti :35831); PORT=35831 exec npx vibe-kanban' &
+open http://127.0.0.1:35831
+fg
