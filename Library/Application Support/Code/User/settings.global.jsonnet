@@ -26,16 +26,16 @@
     "claudeCode.allowDangerouslySkipPermissions": true,
     "claudeCode.initialPermissionMode": "bypassPermissions",
     "claudeCode.preferredLocation": "sidebar",
-    # accessibilitySupport is used by Wispr
+    // accessibilitySupport is used by Wispr
     "editor.accessibilitySupport": "on",
     "jupyter.askForKernelRestart": false,
     "window.confirmSaveUntitledWorkspace": false,
-    # 1:1 mapping between Jupyter interactive windows and .py source files
+    // 1:1 mapping between Jupyter interactive windows and .py source files
     "jupyter.interactiveWindow.creationMode": "perFile",
-    # Don't prompt when opening vscode://vscode-remote/ links (e.g. from Vibe Kanban)
+    // Don't prompt when opening vscode://vscode-remote/ links (e.g. from Vibe Kanban)
     "security.promptForRemoteFileProtocolHandling": false,
 } + {
-    # turning on accessibilitySupport turns on all these sound effects and we have to individually disable them
+    // turning on accessibilitySupport turns on all these sound effects and we have to individually disable them
     ["accessibility.signals." + signal]: { sound: "off" }
     for signal in [
         "lineHasBreakpoint",
