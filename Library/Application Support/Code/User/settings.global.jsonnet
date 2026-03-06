@@ -34,6 +34,10 @@
     "jupyter.interactiveWindow.creationMode": "perFile",
     // Don't prompt when opening vscode://vscode-remote/ links (e.g. from Vibe Kanban)
     "security.promptForRemoteFileProtocolHandling": false,
+    // By disabling VSCode's built-in Chat agent, Claude Code is the only thing
+    // that appears in the right side bar. Unfortunately, you still have to
+    // click the words "Claude Code" in order for it to activate.
+    "chat.disableAIFeatures": true,
 } + {
     // turning on accessibilitySupport turns on all these sound effects and we have to individually disable them
     ["accessibility.signals." + signal]: { sound: "off" }
