@@ -20,3 +20,6 @@
 
 # Vibe Kanban
 - When I tell you to give me the VSCode link and you running inside Vibe Kanban (i.e. the CWD is under /var/tmp/vibe-kanban/), print a link like vscode://vscode-remote/ssh-remote+<current host IP>/var/tmp/vibe-kanban/worktrees/<rest of path to repo>?windowId=_blank.
+
+# Misc
+- If you need to access the user's Google account, use the `gws` CLI utility.

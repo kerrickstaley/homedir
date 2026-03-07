@@ -20,3 +20,5 @@ rm "$tmp"
 This doc links to other docs that you may also want to read depending on what data you need.
 
 To get professional history, fetch [Kerrick's resume](https://kerrickstaley.com/Kerrick%20Staley%20-%20Resume.pdf). You can also try [Kerrick's LinkedIn page](https://www.linkedin.com/in/kerrick-staley/) but it might be blocked.
+
+If you need a signature, there is one in the file `signature.png` in this skill directory.
