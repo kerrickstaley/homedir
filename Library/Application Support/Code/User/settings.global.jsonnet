@@ -39,6 +39,8 @@
     "chat.disableAIFeatures": true,
     // Hide Claude Code by default in new workspaces.
     "workbench.secondarySideBar.defaultVisibility": "hidden",
+    // Fix for https://github.com/microsoft/vscode-python-environments/issues/1325
+    "python-envs.terminal.autoActivationType": "off",
 } + {
     // turning on accessibilitySupport turns on all these sound effects and we have to individually disable them
     ["accessibility.signals." + signal]: { sound: "off" }
