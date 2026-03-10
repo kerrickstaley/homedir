@@ -96,3 +96,7 @@ setopt INC_APPEND_HISTORY
 if runningon vps; then
     export MUJOCO_GL=egl
 fi
+
+if runningon macos; then
+    alias 7z=7zz
+fi
