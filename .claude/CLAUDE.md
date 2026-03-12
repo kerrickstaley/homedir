@@ -19,4 +19,5 @@
 - My fork of a repo will use "fork" as the remote name.
 
 # Misc
+- I often dictate prompts and there may be typoes especially for sound-alike words.
 - If you need to access the user's Google account, use the `gws` CLI utility. Do not use the GMail or Google Calendar MCP.
