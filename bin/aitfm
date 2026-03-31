@@ -1,0 +1,4 @@
+#!/bin/bash
+# "AI Transform"
+# Runs a very small model locally
+{ echo "transform the following input according to these instructions. INSTRUCTIONS: $1 INPUT: "; cat; } | ollama run qwen3.5:4b --think=false
