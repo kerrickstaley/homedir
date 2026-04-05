@@ -5,6 +5,8 @@
 	rebase = true
 [init]
 	defaultBranch = main
+[core]
+	pager = less -i --mouse -FRSX
 [push]
 	autoSetupRemote = true
 [include]
