@@ -17,6 +17,7 @@ works automatically. When setting up for the first time, try just running this;
 a page will open in Chrome with the token.
 '''
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -47,6 +48,27 @@ def pw_eval(js):
 
 
 def main():
+    if not os.environ.get('PLAYWRIGHT_MCP_EXTENSION_TOKEN'):
+        print(
+            'PLAYWRIGHT_MCP_EXTENSION_TOKEN is not set.\n'
+            'If you do not have the Playwright MCP bridge, first install it from '
+            'https://chromewebstore.google.com/detail/playwright-mcp-bridge/mmlmfjhmonkocbjadbfplnigmagldckm . \n'
+            'If you do have it, check your browser: a page should open with a token. Add\n'
+            '    export PLAYWRIGHT_MCP_EXTENSION_TOKEN=<token>\n'
+            'to your shell rc file (e.g. ~/.zshrc), source it, and re-run.\n'
+            'If you\'re an agent, you can ask the user to paste the token to \n'
+            'you and do these steps for the user.',
+            file=sys.stderr,
+        )
+        try:
+            subprocess.run(
+                ['playwright-cli', 'attach', '--extension=chrome'],
+                timeout=3,
+                capture_output=True,
+            )
+        except subprocess.TimeoutExpired:
+            pass
+        sys.exit(1)
     start = time.monotonic()
     pw('attach', '--extension=chrome')
     try:
