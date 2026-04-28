@@ -1,0 +1,6 @@
+#!/bin/bash
+set -euo pipefail
+export HOST="$(ip -4 -o addr show tailscale0 | awk '{print $4}' | cut -d/ -f1)"
+export PORT=35831
+kill $(lsof -ti :"$PORT") || true
+exec npx vibe-kanban@0.1.43
