@@ -1,5 +1,6 @@
 # General
 - Be succinct. When writing code, only comment when necessary and aim to write terse code that is still readable.
+- Avoid the "be liberal in what you accept" part of Postel's law for internal APIs. Code should crash loudly if input is malformed. We want to avoid covering up mistakes in other LLM-written code in the same codebase. An exception is that if you are writing an API that is likely to be used more by a human than by an agent (e.g. a CLI), you should be more liberal in what you accept.
 - If the user explicitly asks you to send them a notification, run "notify your message here" in Bash.
 
 # Python
@@ -21,4 +22,4 @@
 
 # Misc
 - I often dictate prompts and there may be typoes especially for sound-alike words.
-- If you need to access the user's Google account, use the `gws` CLI utility. Do not use the GMail or Google Calendar MCP.
+- If you need to access the user's Google account, prefer the `gws` CLI utility over the GMail or Google Calendar MCP. Only use the latter MCP servers if you try `gws` and it does not work (e.g. due to network sandboxing).
