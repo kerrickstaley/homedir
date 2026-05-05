@@ -100,3 +100,6 @@ fi
 if runningon macos; then
     alias 7z=7zz
 fi
+
+# Certain ML jobs open a lot of files and hit "OSError: [Errno 24] Too many open files"; this fixes that.
+ulimit -n 1000000
