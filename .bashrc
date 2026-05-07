@@ -27,6 +27,8 @@ cdp() {
     cd "$(dirname "$1")"
 }
 
+alias fd='fd -u'
+
 if [[ -f ~/.bashrc_local ]]; then
     source ~/.bashrc_local
 fi
