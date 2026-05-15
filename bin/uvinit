@@ -27,7 +27,9 @@ build-backend = "uv_build"
 module-root = "."
 module-name = []
 EOF
-git add pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md
+touch AGENTS.md
+ln -s AGENTS.md CLAUDE.md
+git add pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md AGENTS.md CLAUDE.md
 git commit -m 'uv init'
 rm main.py
 prek install
