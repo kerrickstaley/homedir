@@ -5,7 +5,6 @@
 
 # Python
 - IMPORTANT: I usually use `uv`, not the system Python interpreter. When trying to run Python code in a project, always try uv first. Only try the system python3 interpreter if uv does not work.
-- Use single quotes instead of double quotes for new code, but match the style of existing code.
 - Make all function arguments required, unless the user will want to use the default value most of the time.
 - Use Plotly, not Matplotlib, for making graphs.
 - Use Polars, not Pandas, for doing data analysis.
