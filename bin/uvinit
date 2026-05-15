@@ -5,6 +5,18 @@ uv init
 uv lock
 uv venv
 echo '__pycache__' > .gitignore
+cat > .pre-commit-config.yaml << 'EOF'
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.15.13
+  hooks:
+    # Run the linter.
+    - id: ruff
+      args: [ --fix ]
+    # Run the formatter.
+    - id: ruff-format
+EOF
 cat >> pyproject.toml << 'EOF'
 
 [build-system]
@@ -15,6 +27,7 @@ build-backend = "uv_build"
 module-root = "."
 module-name = []
 EOF
-git add pyproject.toml uv.lock .python-version .gitignore README.md
+git add pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md
 git commit -m 'uv init'
 rm main.py
+prek install
