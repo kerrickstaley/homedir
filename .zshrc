@@ -103,3 +103,20 @@ fi
 
 # Certain ML jobs open a lot of files and hit "OSError: [Errno 24] Too many open files"; this fixes that.
 ulimit -n 1000000
+
+wtcd() {
+    if [[ -z "$1" ]]; then
+        echo "usage: wtcd <branch>" >&2
+        return 1
+    fi
+    local wt
+    wt=$(git worktree list --porcelain | awk -v b="refs/heads/$1" '
+        /^worktree / { p = substr($0, 10) }
+        /^branch / && $2 == b { print p; exit }
+    ') || return 1
+    if [[ -z "$wt" ]]; then
+        echo "wtcd: no worktree for branch '$1'" >&2
+        return 1
+    fi
+    cd "$wt"
+}
