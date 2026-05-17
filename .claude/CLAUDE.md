@@ -2,6 +2,7 @@
 - Be succinct. When writing code, only comment when necessary and aim to write terse code that is still readable.
 - Avoid the "be liberal in what you accept" part of Postel's law for internal APIs. Code should crash loudly if input is malformed. We want to avoid covering up mistakes in other LLM-written code in the same codebase. An exception is that if you are writing an API that is likely to be used more by a human than by an agent (e.g. a CLI), you should be more liberal in what you accept.
 - If the user explicitly asks you to send them a notification, run "notify your message here" in Bash.
+- Test-driven development: When asked to make a change and add tests, confirm that the tests fail before the change and pass after the change.
 
 # Python
 - IMPORTANT: I usually use `uv`, not the system Python interpreter. When trying to run Python code in a project, always try uv first. Only try the system python3 interpreter if uv does not work.
@@ -13,6 +14,7 @@
 - When I ask you to make a notebook, you should create a .py file using Jupytext-style # %% comments to separate cells, not a .ipynb file.
 - In Polars when using groupby(...).agg(...), if you expect there to be a single value for some column across the whole group, use pl.col(...).unique().item(), not pl.col(...).first().
 - In a notebook, when I say to use tqdm, do `from tqdm.autonotebook import tqdm`.
+- Put the tests for foo.py in foo_test.py in the same dir, unless otherwise specified or if the existing code follows a different convention.
 
 # Git
 - All repos (for both my projects and others' projects) are under ~/src.
