@@ -9,7 +9,7 @@ cat > .pre-commit-config.yaml << 'EOF'
 repos:
 - repo: https://github.com/astral-sh/ruff-pre-commit
   # Ruff version.
-  rev: v0.15.13
+  rev: v0.15.12
   hooks:
     # Run the linter.
     - id: ruff
@@ -29,7 +29,51 @@ module-name = []
 EOF
 touch AGENTS.md
 ln -s AGENTS.md CLAUDE.md
-git add pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md AGENTS.md CLAUDE.md
+mkdir -p bin
+cat > bin/init-worktree << 'EOF'
+#!/bin/bash
+direnv allow
+EOF
+chmod +x bin/init-worktree
+touch .credentials
+echo '.credentials' >> .gitignore
+echo '.init-worktree-finished' >> .gitignore
+echo 'source "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")/.credentials"' > .envrc
+echo 'PATH_add bin' >> .envrc
+direnv allow
+git add pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md AGENTS.md CLAUDE.md .envrc bin/init-worktree
 git commit -m 'uv init'
 rm main.py
 prek install
+
+hook_path="$(git rev-parse --git-common-dir)/hooks/post-checkout"
+cat > "$hook_path" << 'EOF'
+#!/usr/bin/env python3
+import os
+import subprocess
+import sys
+
+
+def main():
+    if len(sys.argv) < 4 or sys.argv[3] != "1":
+        return
+
+    git_root = subprocess.check_output(
+        ["git", "rev-parse", "--show-toplevel"], text=True
+    ).strip()
+
+    if os.path.exists(os.path.join(git_root, ".init-worktree-finished")):
+        return
+
+    init_worktree = os.path.join(git_root, "bin", "init-worktree")
+    if not os.path.exists(init_worktree):
+        return
+
+    subprocess.check_call([init_worktree], cwd=git_root)
+    open(os.path.join(git_root, ".init-worktree-finished"), "w").close()
+
+
+if __name__ == "__main__":
+    main()
+EOF
+chmod +x "$hook_path"
