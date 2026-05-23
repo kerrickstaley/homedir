@@ -8,6 +8,10 @@
       "Bash(notify *)"
     ]
   },
+  "enabledPlugins": {
+    "codex@openai-codex": true,
+    "ralph-loop@claude-plugins-official": true
+  },
   "extraKnownMarketplaces": {
     "openai-codex": {
       "source": {
@@ -17,7 +21,7 @@
     }
   },
   "skipDangerousModePermissionPrompt": true,
-  "enabledPlugins": {
-    "codex@openai-codex": true
-  }
+  "theme": "auto",
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
 }
