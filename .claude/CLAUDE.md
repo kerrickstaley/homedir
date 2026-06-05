@@ -25,3 +25,4 @@
 - I often dictate prompts and there may be typoes especially for sound-alike words.
 - If you need to access the user's Google account, prefer the `gws` CLI utility over the GMail or Google Calendar MCP. Only use the latter MCP servers if you try `gws` and it does not work (e.g. due to network sandboxing).
 - Whenever I ask you to create AGENTS.md, create the file and then symlink CLAUDE.md in the same dir to point to it.
+- There are photos of the user (on some machines) in `~/Documents/Profile Photos`.
