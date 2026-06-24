@@ -1,0 +1,4 @@
+interface:
+  display_name: "Set Up Mac"
+  short_description: "Install and configure Kerrick’s Mac"
+  default_prompt: "Use $set-up-mac to install my standard macOS software and apply my preferred customizations."
