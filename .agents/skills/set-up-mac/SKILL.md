@@ -42,6 +42,86 @@ Bring the Mac to the desired end state. Adapt the implementation to the installe
 - Show the menu bar clock in 24-hour format.
 - Remap Caps Lock to Escape.
 
+## Confirmed macOS 26 Methods
+
+These commands were confirmed by Kerrick to produce the intended behavior on macOS 26. Do not replace them with inferred alternatives unless they stop working.
+
+### Dock
+
+```sh
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock autohide-delay -float 5
+killall Dock
+```
+
+### Visual Studio Code key repeat
+
+```sh
+defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+```
+
+Restart Visual Studio Code after changing this preference.
+
+### Caps Lock to Escape
+
+For the built-in keyboard (`VendorID = 0`, `ProductID = 0`), persist the mapping and activate it immediately:
+
+```sh
+defaults -currentHost write -g \
+  'com.apple.keyboard.modifiermapping.0-0-0' \
+  -array \
+  '{ HIDKeyboardModifierMappingDst = 30064771113; HIDKeyboardModifierMappingSrc = 30064771129; }'
+
+hidutil property --set \
+  '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":30064771129,"HIDKeyboardModifierMappingDst":30064771113}]}'
+```
+
+Use the actual vendor and product IDs for a different keyboard. Verify by pressing Caps Lock, because `hidutil property --get UserKeyMapping` may report `null` on macOS 26 even when the mapping works.
+
+## Confirmed macOS 26 GUI Methods
+
+Use native System Settings controls for the following settings. The corresponding `defaults` writes did not control the effective state on macOS 26. System Events accessibility automation requires Accessibility permission.
+
+Open panes with `open`, then discover controls by accessibility description, name, or identifier. Do not rely on numeric child positions because the hierarchy can change. If System Settings has stale navigation state, quit it and reopen the desired pane.
+
+### Keyboard repeat
+
+```sh
+open 'x-apple.systempreferences:com.apple.Keyboard-Settings.extension'
+```
+
+In the Keyboard pane:
+
+1. Find the `AXSlider` whose `AXDescription` is `Key repeat rate`.
+2. Perform its `AXIncrement` action until `AXValue` equals `AXMaxValue`.
+3. Find the `AXSlider` whose `AXDescription` is `Delay until repeat`.
+4. Perform its `AXIncrement` action until `AXValue` equals `AXMaxValue`. The rightmost position is the shortest delay.
+5. Read both sliders back. The confirmed maximum values were `7` for repeat rate and `6` for delay until repeat.
+
+### Spotlight, Bluetooth, and Display menu bar items
+
+```sh
+open 'x-apple.systempreferences:com.apple.ControlCenter-Settings.extension'
+```
+
+The pane is titled **Menu Bar** on macOS 26. Find `AXCheckBox` controls by these `AXIdentifier` values:
+
+- Spotlight: `controlcenter-spotlight-id`
+- Bluetooth: `controlcenter-bluetooth-id`
+- Display: `controlcenter-display-id`
+
+For each checkbox, perform `AXPress` when `AXValue` is nonzero. Verify all three values are `0`. If a checkbox reports `0` but its item remains visible, press it once to turn it on, then press it again to force a native off-state commit.
+
+### 24-hour clock
+
+Use Date & Time, not the Clock Options sheet or Language & Region:
+
+```sh
+open 'x-apple.systempreferences:com.apple.Date-Time-Settings.extension'
+```
+
+Find the `AXCheckBox` named `24-hour time`. Perform `AXPress` if its value is `0`, then verify its value is `1`. Also verify the Date and time preview uses a value such as `17:39` with no AM/PM marker.
+
 ## Execution Rules
 
 - Support both a full setup and a requested subset.
