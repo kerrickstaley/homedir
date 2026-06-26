@@ -26,13 +26,6 @@ fi
 
 export GOPATH=~/go
 
-# Completion configuration
-fpath[1,0]=~/.zsh/completion/
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
-autoload -Uz compinit
-compinit
-
 ulimit -s unlimited
 
 # Make other-writeable directories (e.g. on filesystems like FAT which don't have permission bit)
