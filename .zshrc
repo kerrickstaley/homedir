@@ -8,14 +8,17 @@ plugins=(
 )
 source $ZSH/oh-my-zsh.sh
 
-if runningon linux; then
-    # this file is present on some distros (Arch) but not needed on others (Ubuntu)
-    if [ -e /etc/profile.d/vte.sh ]; then
-        source /etc/profile.d/vte.sh
-    fi
+if [[ -e /etc/profile.d/vte.sh ]]; then
+    source /etc/profile.d/vte.sh
+fi
+
+if ! command -v pbpaste >/dev/null 2>&1 && command -v xclip >/dev/null 2>&1; then
     pbpaste() {
         xclip -o -selection clipboard
     }
+fi
+
+if ! command -v pbcopy >/dev/null 2>&1 && command -v xclip >/dev/null 2>&1; then
     pbcopy() {
         xclip -selection clipboard
     }
@@ -40,7 +43,7 @@ export LS_COLORS="$LS_COLORS:ow=01;34:"
 alias ls='ls --color=auto'
 
 # Set JAVA_HOME on Linux.
-if runningon linux; then
+if [[ "$(uname -s)" == Linux ]]; then
     export JAVA_HOME='/usr/lib/jvm/java-11-openjdk'
 fi
 
@@ -57,11 +60,11 @@ SAVEHIST=10000000
 
 setopt INC_APPEND_HISTORY
 
-if runningon vps; then
+if [[ "$(uname -s)" == Linux ]]; then
     export MUJOCO_GL=egl
 fi
 
-if runningon macos; then
+if ! command -v 7z >/dev/null 2>&1 && command -v 7zz >/dev/null 2>&1; then
     alias 7z=7zz
 fi
 
