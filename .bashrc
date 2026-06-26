@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
+source "$HOME/.pathrc"
 export EDITOR=vim
 export LESS="$LESS -i --mouse"
 

@@ -1,0 +1,55 @@
+_pathrc_prepend() {
+    case ":$PATH:" in
+        *":$1:"*) ;;
+        *) PATH="$1${PATH:+:$PATH}" ;;
+    esac
+}
+
+_pathrc_append() {
+    case ":$PATH:" in
+        *":$1:"*) ;;
+        *) PATH="${PATH:+$PATH:}$1" ;;
+    esac
+}
+
+if [ -r "$HOME/.cargo/env" ]; then
+    . "$HOME/.cargo/env"
+fi
+
+_pathrc_prepend "$HOME/.local/bin"
+_pathrc_prepend "$HOME/bin"
+_pathrc_prepend "$HOME/go/bin"
+_pathrc_prepend "/usr/local/bin"
+
+case "$(uname -s)" in
+    Darwin)
+        ruby_bindir=
+        while IFS= read -r bindir; do
+            ruby_bindir=$bindir
+        done < <(find /opt/homebrew/Cellar/ruby -mindepth 2 -maxdepth 2 -type d -name bin 2>/dev/null | sort)
+        if [ -n "$ruby_bindir" ]; then
+            _pathrc_prepend "$ruby_bindir"
+        fi
+
+        _pathrc_prepend "/Applications/VLC.app/Contents/MacOS"
+        while IFS= read -r bindir; do
+            _pathrc_prepend "$bindir"
+        done < <(find "$HOME/Library/Python" -mindepth 2 -maxdepth 2 -type d -name bin 2>/dev/null | sort)
+
+        _pathrc_append "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+        _pathrc_append "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+        _pathrc_prepend "/opt/homebrew/opt/coreutils/libexec/gnubin"
+        _pathrc_prepend "/opt/homebrew/opt/grep/libexec/gnubin"
+        _pathrc_prepend "/opt/homebrew/opt/gnu-sed/libexec/gnubin"
+        _pathrc_prepend "/opt/homebrew/opt/gnu-tar/libexec/gnubin"
+        _pathrc_prepend "/opt/homebrew/opt/findutils/libexec/gnubin"
+        ;;
+    Linux)
+        _pathrc_append "/usr/lib/jvm/java-11-openjdk/bin"
+        ;;
+esac
+
+export PATH
+unset bindir ruby_bindir
+unset -f _pathrc_prepend _pathrc_append
