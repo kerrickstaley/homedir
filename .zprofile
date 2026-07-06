@@ -8,3 +8,4 @@ fi
 source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
 source "$HOME/.pathrc"
+[[ -f "$HOME/.zprofile_local" ]] && source "$HOME/.zprofile_local"
