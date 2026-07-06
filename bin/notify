@@ -1,3 +1,22 @@
-#!/bin/bash
-set -euo pipefail
-curl -d "$*" ntfy.sh/"$NTFY_SH_TOPIC"
+#!/usr/bin/env -S uv run python
+import os
+from pathlib import Path
+import sys
+from urllib.request import Request, urlopen
+
+
+def runningon_tags() -> set[str]:
+    try:
+        return set((Path.home() / ".runningon_tags").read_text().split())
+    except FileNotFoundError:
+        return set()
+
+
+message = " ".join(sys.argv[1:]) if "home" in runningon_tags() else "attention needed"
+request = Request(
+    f"https://ntfy.sh/{os.environ['NTFY_SH_TOPIC']}",
+    data=message.encode(),
+    method="POST",
+)
+with urlopen(request) as response:
+    response.read()
