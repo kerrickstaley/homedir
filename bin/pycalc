@@ -1,5 +1,5 @@
 #!/bin/bash
-exec uvx --from 'ipython==9.14.1' --with 'numpy==2.2.6,polars==1.41.2,pandas==2.3.3,scipy==1.17.1' -- ipython -i --no-banner -c "$(cat <<'EOF'
+exec uv run --isolated --with 'ipython==9.14.1,numpy==2.2.6,polars==1.41.2,pandas==2.3.3,scipy==1.17.1' -- ipython -i --no-banner -c "$(cat <<'EOF'
 from math import *
 import numpy as np
 import polars as pl
