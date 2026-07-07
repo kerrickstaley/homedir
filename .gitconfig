@@ -9,5 +9,7 @@
 	pager = less -i --mouse -FRSX
 [push]
 	autoSetupRemote = true
+[index]
+	threads = true
 [include]
     path = .gitconfig_local
