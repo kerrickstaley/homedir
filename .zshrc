@@ -81,6 +81,11 @@ wtcd() {
 
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 
+# Disable terminal software flow control so Ctrl-S is available to applications.
+if [[ -t 0 ]]; then
+    stty -ixon
+fi
+
 if [[ -f "$HOME/.zshrc_local" ]]; then
     source "$HOME/.zshrc_local"
 fi
