@@ -4,4 +4,6 @@ source "$HOME/.pathrc"
 fpath=( /opt/homebrew/share/zsh/site-functions "${fpath[@]}" )
 # End added by argcomplete
 
-[[ -f "$HOME/.zshenv_local" ]] && source "$HOME/.zshenv_local"
+if [[ -f "$HOME/.zshenv_local" ]]; then
+    source "$HOME/.zshenv_local"
+fi
