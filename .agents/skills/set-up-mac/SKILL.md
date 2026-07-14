@@ -41,6 +41,7 @@ Bring the Mac to the desired end state. Adapt the implementation to the installe
 - Hide the individual Bluetooth, Spotlight, and display brightness items from the top-right menu bar. Do not disable the underlying features.
 - Show the menu bar clock in 24-hour format.
 - Remap Caps Lock to Escape.
+- Disable **Force Click and haptic feedback** for the trackpad. Verify the effective System Settings control is off.
 
 ## Confirmed macOS 26 Methods
 
