@@ -42,6 +42,7 @@ Bring the Mac to the desired end state. Adapt the implementation to the installe
 - Show the menu bar clock in 24-hour format.
 - Remap Caps Lock to Escape.
 - Disable **Force Click and haptic feedback** for the trackpad. Verify the effective System Settings control is off.
+- Save screenshots in `~/Documents/Screenshots`.
 
 ## Confirmed macOS 26 Methods
 
@@ -78,6 +79,16 @@ hidutil property --set \
 ```
 
 Use the actual vendor and product IDs for a different keyboard. Verify by pressing Caps Lock, because `hidutil property --get UserKeyMapping` may report `null` on macOS 26 even when the mapping works.
+
+### Screenshot location
+
+```sh
+mkdir -p ~/Documents/Screenshots
+defaults write com.apple.screencapture location ~/Documents/Screenshots
+killall SystemUIServer
+```
+
+Verify with `defaults read com.apple.screencapture location` and confirm it reports `/Users/kerrick/Documents/Screenshots`.
 
 ## Confirmed macOS 26 GUI Methods
 
