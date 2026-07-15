@@ -1,7 +1,6 @@
 # General
 - Be succinct. When writing code, only comment when necessary and aim to write terse code that is still readable.
 - Avoid the "be liberal in what you accept" part of Postel's law for internal APIs. Code should crash loudly if input is malformed. We want to avoid covering up mistakes in other LLM-written code in the same codebase. An exception is that if you are writing an API that is likely to be used more by a human than by an agent (e.g. a CLI), you should be more liberal in what you accept.
-- If the user explicitly asks you to send them a notification, run "notify your message here" in Bash.
 - Test-driven development: When asked to make a change and add tests, confirm that the tests fail before the change and pass after the change.
 
 # Python
