@@ -32,6 +32,14 @@ Bring the Mac to the desired end state. Adapt the implementation to the installe
 - Visual Studio Code
 - Codex (GUI app)
 
+## Command-line tools
+
+Install with Homebrew:
+
+```sh
+brew install fd direnv git jq ripgrep jsonnet python uv gh tmux watch worktrunk
+```
+
 ## Customizations
 
 - Automatically hide the Dock.
