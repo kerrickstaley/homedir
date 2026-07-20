@@ -1,0 +1,2 @@
+#!/bin/bash
+jq 'walk(if type == "string" then "..." else . end) | walk(if type == "array" then .[:1] else . end)'
