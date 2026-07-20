@@ -51,6 +51,7 @@ brew install fd direnv git jq ripgrep jsonnet python uv gh tmux watch worktrunk
 - Remap Caps Lock to Escape.
 - Disable **Force Click and haptic feedback** for the trackpad. Verify the effective System Settings control is off.
 - Save screenshots in `~/Documents/Screenshots`.
+- In iTerm2, add `:` to **Settings → General → Selection → Characters considered part of a word**.
 
 ## Confirmed macOS 26 Methods
 
@@ -141,6 +142,24 @@ open 'x-apple.systempreferences:com.apple.Date-Time-Settings.extension'
 ```
 
 Find the `AXCheckBox` named `24-hour time`. Perform `AXPress` if its value is `0`, then verify its value is `1`. Also verify the Date and time preview uses a value such as `17:39` with no AM/PM marker.
+
+### iTerm2 word selection
+
+Prefer the CLI. The preference key is `WordCharacters` in `com.googlecode.iterm2`. For Kerrick's confirmed existing character set, append `:` with:
+
+```sh
+defaults write com.googlecode.iterm2 WordCharacters '/-+\~_.:'
+```
+
+Verify the raw plist value, which should contain one literal backslash:
+
+```sh
+plutil -extract WordCharacters raw ~/Library/Preferences/com.googlecode.iterm2.plist
+```
+
+The confirmed output is `/-+\~_.:`. `defaults read com.googlecode.iterm2 WordCharacters` displays that single backslash as `\\`, so do not mistake its escaped display for two stored backslashes.
+
+If the existing value differs, preserve its characters and append `:` rather than overwriting it with the confirmed value. If the CLI method is unavailable, open **iTerm2 → Settings → General → Selection** and add `:` to **Characters considered part of a word**. This makes double-click selection include colon-delimited text such as URLs and host/port pairs. Verify the field contains `:`.
 
 ## Execution Rules
 
