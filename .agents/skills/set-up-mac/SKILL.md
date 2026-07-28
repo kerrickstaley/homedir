@@ -44,6 +44,7 @@ brew install fd direnv git jq ripgrep jsonnet python uv gh tmux watch worktrunk
 
 - Automatically hide the Dock.
 - Require hovering at the bottom of the screen for about five seconds before the hidden Dock appears.
+- Disable bouncing Dock icons when applications request attention.
 - Set keyboard repeat to the fastest intended configuration. The known target values on supported macOS versions are `InitialKeyRepeat = 15` and `KeyRepeat = 2`; verify effective behavior rather than assuming the keys are honored.
 - Configure Visual Studio Code so holding a letter key repeats it instead of opening the accented-character picker.
 - Hide the individual Bluetooth, Spotlight, and display brightness items from the top-right menu bar. Do not disable the underlying features.
@@ -62,6 +63,7 @@ These commands were confirmed by Kerrick to produce the intended behavior on mac
 ```sh
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 5
+defaults write com.apple.dock no-bouncing -bool true
 killall Dock
 ```
 
