@@ -37,7 +37,7 @@ Bring the Mac to the desired end state. Adapt the implementation to the installe
 Install with Homebrew:
 
 ```sh
-brew install fd direnv git jq ripgrep jsonnet python uv gh tmux watch worktrunk
+brew install coreutils fd direnv git jq ripgrep jsonnet node python uv gh tmux watch worktrunk
 ```
 
 ## Customizations
