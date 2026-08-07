@@ -53,6 +53,7 @@ brew install coreutils fd direnv git jq ripgrep jsonnet node python uv gh tmux w
 - Disable **Force Click and haptic feedback** for the trackpad. Verify the effective System Settings control is off.
 - Save screenshots in `~/Documents/Screenshots`.
 - In iTerm2, add `:` to **Settings → General → Selection → Characters considered part of a word**.
+- Create the **Slack thread to Codex** shortcut and bind it to **⌘⌥⌃S**.
 
 ## Confirmed macOS 26 Methods
 
@@ -162,6 +163,16 @@ plutil -extract WordCharacters raw ~/Library/Preferences/com.googlecode.iterm2.p
 The confirmed output is `/-+\~_.:`. `defaults read com.googlecode.iterm2 WordCharacters` displays that single backslash as `\\`, so do not mistake its escaped display for two stored backslashes.
 
 If the existing value differs, preserve its characters and append `:` rather than overwriting it with the confirmed value. If the CLI method is unavailable, open **iTerm2 → Settings → General → Selection** and add `:` to **Characters considered part of a word**. This makes double-click selection include colon-delimited text such as URLs and host/port pairs. Verify the field contains `:`.
+
+### Slack thread to Codex shortcut
+
+Create a shortcut named **Slack thread to Codex** with one **Run Shell Script** action:
+
+```sh
+/usr/bin/osascript "$HOME/.applescripts/slack-thread-to-codex.applescript"
+```
+
+In the shortcut's details, select **Add Keyboard Shortcut** and press **⌘⌥⌃S**. If scripting is disabled, ask before enabling **Shortcuts → Settings → Advanced → Allow Running Scripts**. Slack needs permission under **System Settings → Privacy & Security → Accessibility**; tell the user to grant Slack access if it is missing. Report any other required permissions. The AppleScript is tracked in `homegit`; the shortcut and keyboard binding must be configured on each Mac.
 
 ## Execution Rules
 
