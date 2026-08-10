@@ -14,6 +14,8 @@
 - In Polars when using groupby(...).agg(...), if you expect there to be a single value for some column across the whole group, use pl.col(...).unique().item(), not pl.col(...).first().
 - In a notebook, when I say to use tqdm, do `from tqdm.autonotebook import tqdm`.
 - Put the tests for foo.py in foo_test.py in the same dir, unless otherwise specified or if the existing code follows a different convention.
+- When writing async code, use anyio unless otherwise specified.
+- When writing a program that you expect to take over a minute, add logging that logs (at INFO) when each of the major steps begins and ends. The end log should also include how long it took (rounded to nearest ms). Do the basicConfig thing above if you do this.
 
 # Git
 - All repos (for both my projects and others' projects) are under ~/src.
@@ -28,6 +30,9 @@
 - There are photos of the user (on some machines) in `~/Documents/Profile Photos`.
 - When drafting an issue, use the headings Summary / Steps to Reproduce / Expected Behavior / Actual Behavior / Additional Notes unless given another template.
 - I version control dotfiles in my home directory using the "homegit" Bash command. See https://kerrickstaley.com/2023/11/24/homegit for context. Important: This repository is shared between my work and personal machines and is public. When interacting with homegit, make sure that proprietary content from my work is not pushed to the public GitHub repo. Do not commit proprietary content and *never* push to GitHub without my consent and review of the changes. This does *not* apply to homegit-private which is pushed to a separate repo that is not public. When adding things to files like .zshrc, put them before the final few lines which source .zshrc_local.
+- String representations of timestamps should by default be ISO 8601 UTC.
+- String representations of Git commits should by default be 12 hex digits.
+- Prefer YAML over JSON unless otherwise specified.
 
 @~/.agents/AGENTS_local.md
 If you are Codex, you should immediately read the file ~/.agents/AGENTS_local.md (if present) for further instructions. If you are Claude Code you should have already read it and no action is needed.
