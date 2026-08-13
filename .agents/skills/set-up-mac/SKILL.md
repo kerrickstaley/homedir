@@ -195,7 +195,7 @@ Create a shortcut named **Slack thread to Codex** with one **Run Shell Script** 
 /usr/bin/osascript "$HOME/.applescripts/slack-thread-to-codex.applescript"
 ```
 
-In the shortcut's details, select **Add Keyboard Shortcut** and press **⌘⌥⌃S**. If scripting is disabled, ask before enabling **Shortcuts → Settings → Advanced → Allow Running Scripts**. Slack needs permission under **System Settings → Privacy & Security → Accessibility**; tell the user to grant Slack access if it is missing. Report any other required permissions. The AppleScript is tracked in `homegit`; the shortcut and keyboard binding must be configured on each Mac.
+In the shortcut's details, select **Add Keyboard Shortcut** and press **⌘⌥⌃S**. If scripting is disabled, ask before enabling **Shortcuts → Settings → Advanced → Allow Running Scripts**. Slack needs permission under **System Settings → Privacy & Security → Accessibility**; tell the user to grant Slack access if it is missing. Report any other required permissions. If the AppleScript is not already present, download it from https://github.com/kerrickstaley/homedir.
 
 ## Execution Rules
 
