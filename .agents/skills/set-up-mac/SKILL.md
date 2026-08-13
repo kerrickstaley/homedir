@@ -5,16 +5,12 @@ description: Install Kerrick's standard macOS applications and apply his preferr
 
 # Set Up Mac
 
-Bring the Mac to the desired end state. Adapt the implementation to the installed macOS version and available management tools; do not assume a specific package manager or defaults command is the best route.
+Bring the Mac to the desired end state. Use Homebrew for every application or tool it can install, and adapt configuration methods to the installed macOS version and available management tools.
 
 ## Workflow
 
 1. Inventory the requested applications and settings. Do not reinstall or overwrite items already in the desired state.
-2. For each missing application, try installation sources in this order:
-   1. Self Service, if available.
-   2. Mac App Store.
-   3. Homebrew
-   4. Official vendor installation instructions found on the internet.
+2. Install every application available through Homebrew with Homebrew. For applications unavailable there, try Self Service, then the Mac App Store, then official vendor installation instructions found on the internet.
 3. Before following internet installation instructions, show the user the official source and intended action, then obtain approval for that application. Ask separately for every application; approval for one does not cover another. Do not use third-party download mirrors. You do not need to ask approval for Self Service or for Mac App Store or for Homebrew.
 4. Apply the requested customizations using mechanisms appropriate to the OS version. Preserve unrelated preferences.
 5. Verify each application launches or reports a valid installed version, and read back each setting where possible. Report anything requiring user authentication, a restart, logout, permission grant, or manual action.
@@ -32,13 +28,16 @@ Bring the Mac to the desired end state. Adapt the implementation to the installe
 - Visual Studio Code
 - Codex (GUI app)
 
-## Command-line tools
+## Homebrew packages
 
-Install with Homebrew:
+Install all available command-line tools and applications with Homebrew:
 
 ```sh
 brew install coreutils fd direnv git jq ripgrep jsonnet node python uv gh tmux watch worktrunk
+brew install --cask monitorcontrol jordanbaird-ice iterm2 rectangle tailscale-app meetingbar visual-studio-code codex-app
 ```
+
+Use the Mac App Store or Self Service for Amphetamine, which has no Homebrew cask. The `codex-app` cask installs the GUI app; `codex` installs the terminal CLI.
 
 ## Customizations
 
@@ -47,8 +46,10 @@ brew install coreutils fd direnv git jq ripgrep jsonnet node python uv gh tmux w
 - Disable bouncing Dock icons when applications request attention.
 - Set keyboard repeat to the fastest intended configuration. The known target values on supported macOS versions are `InitialKeyRepeat = 15` and `KeyRepeat = 2`; verify effective behavior rather than assuming the keys are honored.
 - Configure Visual Studio Code so holding a letter key repeats it instead of opening the accented-character picker.
+- Configure Ice to show only the meeting indicator, Wi-Fi, battery, Control Center, and clock, in that order; hide every other menu bar item.
 - Hide the individual Bluetooth, Spotlight, and display brightness items from the top-right menu bar. Do not disable the underlying features.
 - Show the menu bar clock in 24-hour format.
+- Start MeetingBar, Rectangle, and MonitorControl automatically at login.
 - Remap Caps Lock to Escape.
 - Disable **Force Click and haptic feedback** for the trackpad. Verify the effective System Settings control is off.
 - Save screenshots in `~/Documents/Screenshots`.
@@ -100,13 +101,35 @@ defaults write com.apple.screencapture location ~/Documents/Screenshots
 killall SystemUIServer
 ```
 
-Verify with `defaults read com.apple.screencapture location` and confirm it reports `/Users/kerrick/Documents/Screenshots`.
+Verify with `defaults read com.apple.screencapture location` and confirm it reports `$HOME/Documents/Screenshots`.
 
 ## Confirmed macOS 26 GUI Methods
 
 Use native System Settings controls for the following settings. The corresponding `defaults` writes did not control the effective state on macOS 26. System Events accessibility automation requires Accessibility permission.
 
 Open panes with `open`, then discover controls by accessibility description, name, or identifier. Do not rely on numeric child positions because the hierarchy can change. If System Settings has stale navigation state, quit it and reopen the desired pane.
+
+### Ice menu bar layout
+
+In **Ice → Menu Bar Layout**, arrange the **Visible** section from left to right:
+
+1. MeetingBar.
+2. Wi-Fi.
+3. Battery.
+4. Control Center.
+5. Clock.
+
+Move every other item to **Hidden**, including app icons, Bluetooth, Spotlight, and display brightness. Preserve the order of the five visible items.
+
+### Login items
+
+Enable **Launch at Login** or **Start at Login** in each installed application's settings, or add the applications in **System Settings → General → Login Items**:
+
+- MeetingBar.
+- Rectangle.
+- MonitorControl.
+
+Verify each application is enabled as a login item; do not infer login behavior from the application merely running.
 
 ### Keyboard repeat
 
