@@ -1,6 +1,6 @@
 ---
 name: get-personal-info
-description: Get Kerrick (the user)'s personal information
+description: Get Kerrick (the user)'s personal information (date of birth, ID numbers, signature image, etc.)
 ---
 You can get personal information about Kerrick by following these instructions:
 
