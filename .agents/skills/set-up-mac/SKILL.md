@@ -48,6 +48,7 @@ Use the Mac App Store or Self Service for Amphetamine, which has no Homebrew cas
 - Configure Visual Studio Code so holding a letter key repeats it instead of opening the accented-character picker.
 - Configure Ice to show only the meeting indicator, Wi-Fi, battery, Control Center, and clock, in that order; hide every other menu bar item.
 - Hide the individual Bluetooth, Spotlight, and display brightness items from the top-right menu bar. Do not disable the underlying features.
+- Exclude `~/code` and `~/src` from Spotlight searches; add each distinct resolved directory only once.
 - Show the menu bar clock in 24-hour format.
 - Start MeetingBar, Rectangle, and MonitorControl automatically at login.
 - Remap Caps Lock to Escape.
@@ -144,6 +145,28 @@ In the Keyboard pane:
 3. Find the `AXSlider` whose `AXDescription` is `Delay until repeat`.
 4. Perform its `AXIncrement` action until `AXValue` equals `AXMaxValue`. The rightmost position is the shortest delay.
 5. Read both sliders back. The confirmed maximum values were `7` for repeat rate and `6` for delay until repeat.
+
+### Spotlight search exclusions
+
+Exclude `~/code` and `~/src` through **System Settings → Spotlight → Search Privacy**.
+
+1. Identify which directories exist and whether they resolve to the same location:
+
+```sh
+ls -ld ~/code ~/src
+realpath ~/code ~/src
+```
+
+2. Open the Spotlight settings pane:
+
+```sh
+open "x-apple.systempreferences:com.apple.Spotlight-Settings.extension"
+```
+
+3. Select **Search Privacy…**, add each distinct resolved directory, and select **Done**. If `~/src` is a symlink to `~/code`, add only the real `~/code` directory; the exclusion covers both paths. If they are separate directories, add both.
+4. Reopen **Search Privacy…** and verify every distinct resolved directory is listed.
+
+There is no supported per-directory CLI for changing the Search Privacy exclusion list. `mdutil` controls whole mounted volumes: do not run `mdutil -i off ~/code` or `mdutil -i off ~/src`, because this can disable indexing for the entire containing volume. Do not substitute undocumented marker files, directory renames, or direct preference writes for the verified GUI setting.
 
 ### Spotlight, Bluetooth, and Display menu bar items
 
