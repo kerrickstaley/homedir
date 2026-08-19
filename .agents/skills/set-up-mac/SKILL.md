@@ -50,7 +50,7 @@ Use the Mac App Store or Self Service for Amphetamine, which has no Homebrew cas
 - Hide the individual Bluetooth, Spotlight, and display brightness items from the top-right menu bar. Do not disable the underlying features.
 - Exclude `~/code` and `~/src` from Spotlight searches; add each distinct resolved directory only once.
 - Show the menu bar clock in 24-hour format.
-- Start MeetingBar, Rectangle, and MonitorControl automatically at login.
+- Start Ice, MeetingBar, Rectangle, and MonitorControl automatically at login.
 - Remap Caps Lock to Escape.
 - Disable **Force Click and haptic feedback** for the trackpad. Verify the effective System Settings control is off.
 - Save screenshots in `~/Documents/Screenshots`.
@@ -126,6 +126,7 @@ Move every other item to **Hidden**, including app icons, Bluetooth, Spotlight, 
 
 Enable **Launch at Login** or **Start at Login** in each installed application's settings, or add the applications in **System Settings → General → Login Items**:
 
+- Ice (**Ice → General → Launch at login**).
 - MeetingBar.
 - Rectangle.
 - MonitorControl.
