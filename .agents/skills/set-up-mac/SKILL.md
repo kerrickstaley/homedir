@@ -1,6 +1,6 @@
 ---
 name: set-up-mac
-description: Install Kerrick's standard macOS applications and apply his preferred system customizations. Use when setting up a new Mac, auditing an existing Mac against the standard setup, installing one or more standard applications, or restoring the preferred Dock, keyboard, menu bar, clock, and modifier-key behavior.
+description: Install Kerrick's standard macOS applications and apply his preferred system customizations. Use when setting up a new Mac, auditing an existing Mac against the standard setup, installing one or more standard applications, or restoring the preferred Dock, keyboard, menu bar, clock, file associations, and modifier-key behavior.
 ---
 
 # Set Up Mac
@@ -33,7 +33,7 @@ Bring the Mac to the desired end state. Use Homebrew for every application or to
 Install all available command-line tools and applications with Homebrew:
 
 ```sh
-brew install coreutils fd direnv git jq ripgrep jsonnet node python uv gh tmux watch worktrunk
+brew install coreutils fd direnv duti git jq ripgrep jsonnet node python uv gh tmux watch worktrunk
 brew install --cask monitorcontrol jordanbaird-ice iterm2 rectangle tailscale-app meetingbar visual-studio-code codex-app
 ```
 
@@ -46,6 +46,7 @@ Use the Mac App Store or Self Service for Amphetamine, which has no Homebrew cas
 - Disable bouncing Dock icons when applications request attention.
 - Set keyboard repeat to the fastest intended configuration. The known target values on supported macOS versions are `InitialKeyRepeat = 15` and `KeyRepeat = 2`; verify effective behavior rather than assuming the keys are honored.
 - Configure Visual Studio Code so holding a letter key repeats it instead of opening the accented-character picker.
+- Use Visual Studio Code as the default app for `.json`, `.py`, and `.yaml` files.
 - Configure Ice to show only the meeting indicator, Wi-Fi, battery, Control Center, and clock, in that order; hide every other menu bar item.
 - Hide the individual Bluetooth, Spotlight, and display brightness items from the top-right menu bar. Do not disable the underlying features.
 - Exclude `~/code` and `~/src` from Spotlight searches; add each distinct resolved directory only once.
@@ -69,6 +70,29 @@ defaults write com.apple.dock autohide-delay -float 5
 defaults write com.apple.dock no-bouncing -bool true
 killall Dock
 ```
+
+### Default file-opening applications
+
+Install `duti` with Homebrew and set Visual Studio Code as the default for JSON, Python, and YAML files:
+
+```sh
+brew install duti
+for ext in json py yaml; do
+  duti -s com.microsoft.VSCode ".$ext" all
+done
+```
+
+On macOS 26, `duti` can exit successfully before the change is accepted. Inspect **CoreServicesUIAgent** (`com.apple.coreservices.uiagent`) with Computer Use and select **Use “Code”** in each matching confirmation dialog. This can be done by the agent; the user need not click manually. Do not accept unrelated dialogs.
+
+After accepting the dialogs, read the effective defaults back:
+
+```sh
+for ext in json py yaml; do
+  duti -x "$ext"
+done
+```
+
+Each result must identify `/Applications/Visual Studio Code.app` and `com.microsoft.VSCode`. If a result still names the previous app, check for a pending confirmation; do not treat `duti -s` exit status as verification.
 
 ### Visual Studio Code key repeat
 
