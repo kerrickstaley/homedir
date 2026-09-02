@@ -33,11 +33,27 @@ Bring the Mac to the desired end state. Use Homebrew for every application or to
 Install all available command-line tools and applications with Homebrew:
 
 ```sh
-brew install coreutils fd direnv duti git jq ripgrep jsonnet node python uv gh tmux watch worktrunk
+brew install coreutils fd fzf direnv duti git jq ripgrep jsonnet node python uv gh tmux watch worktrunk
 brew install --cask monitorcontrol jordanbaird-ice iterm2 rectangle tailscale-app meetingbar visual-studio-code codex-app
 ```
 
 Use the Mac App Store or Self Service for Amphetamine, which has no Homebrew cask. The `codex-app` cask installs the GUI app; `codex` installs the terminal CLI.
+
+### fzf shell integration
+
+`brew install fzf` does not enable shell key bindings or fuzzy completion. Generate `~/.fzf.zsh` with Homebrew's bundled installer:
+
+```sh
+"$(brew --prefix fzf)/install" --key-bindings --completion --no-update-rc --no-bash --no-fish --no-nushell
+```
+
+Ensure `~/.zshrc` contains the following line after completion initialization and before the final local-configuration sources; preserve it if already present:
+
+```sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+```
+
+Verify in a fresh interactive Zsh that Ctrl-R, Ctrl-T, and Alt-C bind to `fzf-history-widget`, `fzf-file-widget`, and `fzf-cd-widget`, respectively, and that `fzf-completion` is registered. Existing terminals need `source ~/.fzf.zsh` or a new shell.
 
 ## Customizations
 
