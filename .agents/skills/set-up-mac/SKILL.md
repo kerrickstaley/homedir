@@ -68,6 +68,7 @@ Verify in a fresh interactive Zsh that Ctrl-R, Ctrl-T, and Alt-C bind to `fzf-hi
 - Exclude `~/code` and `~/src` from Spotlight searches; add each distinct resolved directory only once.
 - Show the menu bar clock in 24-hour format.
 - Start Ice, MeetingBar, Rectangle, and MonitorControl automatically at login.
+- In **MeetingBar → Settings → Appearance → Status bar**, set **Title** to **event title** and **shorten to 35 characters**. Verify the displayed limit is **35**; preserve the separate **Menu → Shorten event title** setting.
 - Remap Caps Lock to Escape.
 - Disable **Force Click and haptic feedback** for the trackpad. Verify the effective System Settings control is off.
 - Save screenshots in `~/Documents/Screenshots`.
