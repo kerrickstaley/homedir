@@ -22,7 +22,11 @@
 - When creating a worktree, make it under the wt/ directory in the root of the main repo (not as a sibling to the main repo).
 - My fork of a repo will use "fork" as the remote name.
 
+# Browser automation
+- If Bitwarden's inline login suggestions cause "Cannot access a chrome-extension:// URL of different extension" or "another extension UI is open", dismiss the popup with Escape sent directly to the native Chrome app: `chrome = await cua.getApp("com.google.Chrome"); await chrome.pressKey("Escape"); await chrome.getAXState();`. The browser tab's `pressKey("Escape")` can fail with the same error, while native app control works. Refresh the tab's accessibility state before resuming browser actions. If focusing the field reopens the popup, use native Chrome control to focus the field, press Escape, type, and Tab away. Try this before asking me to dismiss the popup or change Bitwarden settings.
+
 # Misc
+- Keep Google Sheets as plain, editable cells. Do not add table outlines or filter ranges with outlines; they make the sheet harder to edit.
 - I often dictate prompts and there may be typoes especially for sound-alike words.
 - Create new skills in `~/.agents/skills`, not `~/.codex/skills`.
 - Whenever I ask you to create AGENTS.md, create the file and then symlink CLAUDE.md in the same dir to point to it.
