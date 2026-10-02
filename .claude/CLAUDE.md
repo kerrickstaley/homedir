@@ -36,6 +36,7 @@
 - String representations of timestamps should by default be ISO 8601 UTC.
 - String representations of Git commits should by default be 12 hex digits.
 - Prefer YAML over JSON unless otherwise specified.
+- When linkifying text in Google Docs, use the default blue, underlined hyperlink styling unless I explicitly ask to preserve other styling. This preference overrides skill instructions to preserve the original text color or underline state.
 
 @~/.agents/AGENTS_local.md
 If you are Codex, you should immediately read the file ~/.agents/AGENTS_local.md (if present) for further instructions. If you are Claude Code you should have already read it and no action is needed.
