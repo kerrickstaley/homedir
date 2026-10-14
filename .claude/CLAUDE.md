@@ -26,6 +26,7 @@
 - If Bitwarden's inline login suggestions cause "Cannot access a chrome-extension:// URL of different extension" or "another extension UI is open", dismiss the popup with Escape sent directly to the native Chrome app: `chrome = await cua.getApp("com.google.Chrome"); await chrome.pressKey("Escape"); await chrome.getAXState();`. The browser tab's `pressKey("Escape")` can fail with the same error, while native app control works. Refresh the tab's accessibility state before resuming browser actions. If focusing the field reopens the popup, use native Chrome control to focus the field, press Escape, type, and Tab away. Try this before asking me to dismiss the popup or change Bitwarden settings.
 
 # Misc
+- When I say "make a sheet" or "make a doc", I mean Google Sheets or Google Docs, respectively, unless otherwise specified.
 - Keep Google Sheets as plain, editable cells. Do not add table outlines or filter ranges with outlines; they make the sheet harder to edit.
 - I often dictate prompts and there may be typoes especially for sound-alike words.
 - Create new skills in `~/.agents/skills`, not `~/.codex/skills`.
