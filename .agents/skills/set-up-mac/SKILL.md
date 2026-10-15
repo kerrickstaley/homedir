@@ -73,6 +73,7 @@ Verify in a fresh interactive Zsh that Ctrl-R, Ctrl-T, and Alt-C bind to `fzf-hi
 - Disable **Force Click and haptic feedback** for the trackpad. Verify the effective System Settings control is off.
 - Save screenshots in `~/Documents/Screenshots`.
 - In iTerm2, add `:` to **Settings → General → Selection → Characters considered part of a word**.
+- Disable iTerm2’s automatic update checks because iTerm2 is updated through Homebrew; use the CLI method below and verify the saved preference.
 - Create the **Slack thread to Codex** shortcut and bind it to **⌘⌥⌃S**.
 
 ## Confirmed macOS 26 Methods
@@ -233,6 +234,18 @@ open 'x-apple.systempreferences:com.apple.Date-Time-Settings.extension'
 ```
 
 Find the `AXCheckBox` named `24-hour time`. Perform `AXPress` if its value is `0`, then verify its value is `1`. Also verify the Date and time preview uses a value such as `17:39` with no AM/PM marker.
+
+### iTerm2 automatic update checks
+
+Prefer the CLI, as with word selection:
+
+```sh
+defaults write com.googlecode.iterm2 SUEnableAutomaticChecks -bool false
+defaults read com.googlecode.iterm2 SUEnableAutomaticChecks
+plutil -extract SUEnableAutomaticChecks raw ~/Library/Preferences/com.googlecode.iterm2.plist
+```
+
+Verify `defaults` returns `0` and the raw plist value is `false`. This verifies the saved preference; an already-running iTerm2 may need a restart to pick it up. Do not quit active terminal sessions automatically. The corresponding checkbox is **Settings → General → Software Update → Check for updates automatically** (**Services** in older versions).
 
 ### iTerm2 word selection
 
