@@ -1,7 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 gitinit
-uv init
+uv init --lib
+: > src/*/__init__.py
 uv lock
 uv venv
 echo '__pycache__' > .gitignore
@@ -17,16 +18,6 @@ repos:
     # Run the formatter.
     - id: ruff-format
 EOF
-cat >> pyproject.toml << 'EOF'
-
-[build-system]
-requires = ["uv_build"]
-build-backend = "uv_build"
-
-[tool.uv.build-backend]
-module-root = "."
-module-name = []
-EOF
 touch AGENTS.md
 ln -s AGENTS.md CLAUDE.md
 mkdir -p bin
@@ -41,9 +32,8 @@ echo '.init-worktree-finished' >> .gitignore
 echo 'source "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")/.credentials"' > .envrc
 echo 'PATH_add bin' >> .envrc
 direnv allow
-git add pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md AGENTS.md CLAUDE.md .envrc bin/init-worktree
+git add src pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md AGENTS.md CLAUDE.md .envrc bin/init-worktree
 git commit -m 'uv init'
-rm main.py
 prek install
 
 hook_path="$(git rev-parse --git-common-dir)/hooks/post-checkout"
