@@ -39,6 +39,20 @@ brew install --cask monitorcontrol jordanbaird-ice iterm2 rectangle tailscale-ap
 
 Use the Mac App Store or Self Service for Amphetamine, which has no Homebrew cask. The `codex-app` cask installs the GUI app; `codex` installs the terminal CLI.
 
+### Automatic Homebrew updates and upgrades
+
+Use [Homebrew Autoupdate](https://github.com/DomT4/homebrew-autoupdate) to update Homebrew and upgrade formulae and casks daily, clean up afterward, and notify only on failures:
+
+```sh
+brew tap domt4/autoupdate
+brew trust --command domt4/autoupdate/autoupdate
+mkdir -p ~/Library/LaunchAgents
+brew autoupdate start 24h --upgrade --cleanup --notify-on-error
+brew autoupdate status
+```
+
+If already configured, inspect `brew autoupdate status` first. Preserve a matching active configuration. To change existing options, run `brew autoupdate delete` before the `start` command; this removes the old generated configuration and logs. Verify the job is loaded, the interval is 86400 seconds, formula and cask upgrades and cleanup are enabled, and notifications are failures only. Do not add `--immediate`, `--greedy`, or `--sudo` by default. Casks requiring administrator privileges need separate handling; report any that cannot upgrade unattended.
+
 ### fzf shell integration
 
 `brew install fzf` does not enable shell key bindings or fuzzy completion. Generate `~/.fzf.zsh` with Homebrew's bundled installer:
