@@ -30,7 +30,6 @@ _pathrc_prepend "/usr/local/bin"
 
 case "$(uname -s)" in
     Darwin)
-        _pathrc_prepend "/Applications/GIMP.app/Contents/MacOS"
         _pathrc_prepend "/Applications/VLC.app/Contents/MacOS"
         while IFS= read -r bindir; do
             _pathrc_prepend "$bindir"
@@ -38,6 +37,7 @@ case "$(uname -s)" in
 
         _pathrc_append "/Applications/Sublime Text.app/Contents/SharedSupport/bin"
         _pathrc_append "/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+        _pathrc_append "/Applications/GIMP.app/Contents/MacOS"
 
         _pathrc_prepend "/opt/homebrew/opt/coreutils/libexec/gnubin"
         _pathrc_prepend "/opt/homebrew/opt/grep/libexec/gnubin"
