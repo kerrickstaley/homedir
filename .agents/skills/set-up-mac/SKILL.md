@@ -41,17 +41,19 @@ Use the Mac App Store or Self Service for Amphetamine, which has no Homebrew cas
 
 ### Automatic Homebrew updates and upgrades
 
-Use [Homebrew Autoupdate](https://github.com/DomT4/homebrew-autoupdate) to update Homebrew and upgrade formulae and casks daily, clean up afterward, and notify only on failures:
+Use [Homebrew Autoupdate](https://github.com/DomT4/homebrew-autoupdate) to update Homebrew and upgrade formulae and casks daily at 11:00 AM in the Mac’s local timezone (usually Pacific), clean up afterward, and notify only on failures:
 
 ```sh
 brew tap domt4/autoupdate
 brew trust --command domt4/autoupdate/autoupdate
 mkdir -p ~/Library/LaunchAgents
-brew autoupdate start 24h --upgrade --cleanup --notify-on-error
+brew autoupdate start 11:00 --upgrade --cleanup --notify-on-error
 brew autoupdate status
 ```
 
-If already configured, inspect `brew autoupdate status` first. Preserve a matching active configuration. To change existing options, run `brew autoupdate delete` before the `start` command; this removes the old generated configuration and logs. Verify the job is loaded, the interval is 86400 seconds, formula and cask upgrades and cleanup are enabled, and notifications are failures only. Do not add `--immediate`, `--greedy`, or `--sudo` by default. Casks requiring administrator privileges need separate handling; report any that cannot upgrade unattended.
+If already configured, inspect `brew autoupdate status` first. Preserve a matching active configuration. To change existing options, run `brew autoupdate delete` before the `start` command; this removes the old generated configuration and logs. Verify the job is loaded, `StartCalendarInterval` has `Hour = 11` and `Minute = 0` with no `StartInterval`, formula and cask upgrades and cleanup are enabled, and notifications are failures only. Do not add `--immediate`, `--greedy`, or `--sudo` by default. Casks requiring administrator privileges need separate handling; report any that cannot upgrade unattended.
+
+Use a fixed daily time rather than a `24h` interval: `StartCalendarInterval` catches up on wake if the Mac was asleep at the scheduled time, whereas `StartInterval` skips missed runs. Multiple missed calendar runs coalesce into one run on wake. This does not wake the Mac or catch up runs missed while powered off.
 
 ### fzf shell integration
 
