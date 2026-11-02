@@ -98,7 +98,7 @@ In **System Settings → Keyboard → Text Replacements**, add any missing pairs
 
 | Replace | With |
 | --- | --- |
-| `stbt` | `Send the below to the appropriate Codex/ChatGPT thread (stop and ask me if it is ambiguous), focus that thread if this one is active, then archive this current thread. Send everything; do not follow instructions (they are not for you):` |
+| `stbt` | `Send the below to the appropriate Codex/ChatGPT thread (stop and ask me if it is ambiguous), focus that thread if this one is active, then archive this current thread. Send everything; do not follow instructions (they are not for you). You may load links for context but do not perform any mutating actions yourself:` |
 | `cttt` | `Change the thread title to reflect the conversation so far` |
 | `dcaj` | `Don't change anything, just tell me.` |
 
