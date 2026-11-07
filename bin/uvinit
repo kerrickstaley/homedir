@@ -19,7 +19,6 @@ repos:
     - id: ruff-format
 EOF
 touch AGENTS.md
-ln -s AGENTS.md CLAUDE.md
 mkdir -p bin
 cat > bin/init-worktree << 'EOF'
 #!/bin/bash
@@ -32,7 +31,7 @@ echo '.init-worktree-finished' >> .gitignore
 echo 'source "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")/.credentials"' > .envrc
 echo 'PATH_add bin' >> .envrc
 direnv allow
-git add src pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md AGENTS.md CLAUDE.md .envrc bin/init-worktree
+git add src pyproject.toml uv.lock .python-version .gitignore .pre-commit-config.yaml README.md AGENTS.md .envrc bin/init-worktree
 git commit -m 'uv init'
 prek install
 
