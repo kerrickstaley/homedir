@@ -23,6 +23,7 @@
 - My fork of a repo will use "fork" as the remote name.
 
 # Browser automation
+- Never use the in-app browser for sites that require login. Use Google Chrome for those sites.
 - If Bitwarden's inline login suggestions cause "Cannot access a chrome-extension:// URL of different extension" or "another extension UI is open", dismiss the popup with Escape sent directly to the native Chrome app: `chrome = await cua.getApp("com.google.Chrome"); await chrome.pressKey("Escape"); await chrome.getAXState();`. The browser tab's `pressKey("Escape")` can fail with the same error, while native app control works. Refresh the tab's accessibility state before resuming browser actions. If focusing the field reopens the popup, use native Chrome control to focus the field, press Escape, type, and Tab away. Try this before asking me to dismiss the popup or change Bitwarden settings.
 
 # Misc
